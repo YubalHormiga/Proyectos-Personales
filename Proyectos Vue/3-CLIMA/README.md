@@ -18,9 +18,6 @@ La funcionalidad de obtener los datos del clima y gestionar la lógica correspon
 
 **[Enlace a la página](https://weather-yubalhh.netlify.app/)**
 
-<<<<<<< HEAD
-**[Enlace a la página del clima](https://weather-yubalhh.netlify.app/)**
-
 
 ## Captura de pantalla
 
