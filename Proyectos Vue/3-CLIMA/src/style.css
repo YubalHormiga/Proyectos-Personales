@@ -1,0 +1,164 @@
+:root {
+  --primary-1: #892CDC;
+  --primary-2: #fff4ff;
+  --primary-3: #D9ACF5;
+  --primary-200: #BC6FF1;
+  --primary-4: #FDEBED;
+  --bg-100: #222831;
+  --bg-200: #393E46;
+
+
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--bg-100);
+  color: var(--primary-4);
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+/* ⁡⁢⁢𝔾𝕝𝕠𝕓𝕒𝕝s⁡ */
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  ;
+  font-size: 4rem;
+  color: var(--primary-2);
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  text-align: center
+}
+
+h1 span {
+  display: block;
+  color: var(--primary-1);
+  text-transform: none;
+
+}
+
+
+.container {
+  max-width: 100rem;
+  width: 90%;
+  margin: 0 auto;
+
+}
+
+.search-container {
+  gap: 4rem;
+}
+
+@media (min-width: 768px) {
+  .search-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+}
+
+.form,
+.weather {
+  background-color: var(--bg-200);
+  border-radius: 1rem;
+  padding: 4rem;
+  margin-top: 4rem;
+
+}
+
+
+/* Form component*/
+
+.form-container,
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.form-container input,
+.form-container select {
+  padding: 0.5rem;
+  font-size: 2rem;
+}
+
+.form-container option:first-child {
+  text-align: center;
+}
+
+.form-container input[type='submit'] {
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+  color: var(--primary-4);
+  background-color: var(--primary-200);
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease
+}
+
+.form-container input[type='submit']:hover {
+  background-color: var(--primary-2);
+  color: var(--primary-1);
+}
+
+/* Wheather */
+
+h2 {
+  margin: 0 auto;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+h2 span {
+  display: block;
+  color: var(--primary-200);
+  text-transform: none;
+
+}
+
+.temperatureAndWind,
+.maxMin {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actualTemperature,
+.maxTemperature,
+.minTemperature,
+.windSpedd {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Alert */
+
+.alert {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  /* background-color: var(--primary-3); */
+  padding: 0.5rem;
+  color: var(--text-100);
+
+}
+
+/* Spinner */
+.spinner {
+  margin-top: 4rem;
+
+}
