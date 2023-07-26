@@ -21,7 +21,7 @@ Para gestionar el estado de la aplicación de forma eficiente, creé varios stor
 Además de la gestión del estado, conecté la aplicación a una API externa utilizando la librería Axios para obtener datos actualizados sobre las recetas culinarias. Así, la información se recupera mediante llamadas HTTP y se almacena en los stores para un acceso rápido y eficiente.
 
 En resumen, la combinación de Vue.js, Vue Router, Pinia y Axios me ha permitido desarrollar una aplicación web poderosa y efectiva, ofreciendo a los usuarios una experiencia excepcional. Los stores creados facilitan la gestión de datos y la interacción con la API, proporcionando una aplicación completa y bien estructurada.
-**[Enlace a la página](https://weather-yubalhh.netlify.app/)**
+**[Enlace a la página](https://tastetrove-yubalhh.netlify.app//)**
 
 
 ## Captura de pantalla
