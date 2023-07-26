@@ -21,7 +21,6 @@ const meals = useMealsStore();
         <button 
         @click="meals.selectMeal(meal.idMeal)"
         type="button"
-
         >Receta</button>
       </div>
     </div>
@@ -44,13 +43,13 @@ margin: 0 auto;
   text-align: center;
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Agrega una transición suave a la transformación y a la sombra */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 .meal-item:hover {
   transform: scale(
     1.1
-  ); /* Escala la imagen para que parezca que viene hacia delante */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Agrega una sombra que resalta el efecto */
+  ); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
 }
 
 .meal-item img {
@@ -62,9 +61,9 @@ margin: 0 auto;
 
 .meal-item h2 {
   margin-top: 1rem;
-  white-space: nowrap; /* Evita el salto de línea */
-  overflow: hidden; /* Oculta el texto que se desborda */
-  text-overflow: ellipsis; /* Muestra puntos suspensivos al final del texto */
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
 
 .meal-item button {

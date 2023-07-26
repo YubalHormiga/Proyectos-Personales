@@ -11,6 +11,4 @@ export default{
     searchFoodRecipe(id){
         return api.get(`/lookup.php?i=${id}`)
     },
-
-
 }

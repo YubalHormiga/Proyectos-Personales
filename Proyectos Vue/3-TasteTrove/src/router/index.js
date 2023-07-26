@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/collection',
       name: 'collection',
-      component: () => import('../views/CulinaryCollection.vue')
+      component: () => import('../views/CollectionView.vue')
     }
   ]
 })

@@ -3,8 +3,6 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import APIservices from '../services/APIservices'
 import { useModalStore } from './modal'
 
-
-
 export const useMealsStore = defineStore('meals', () => {
 
     const categories = ref([])
@@ -44,7 +42,6 @@ export const useMealsStore = defineStore('meals', () => {
         selectMeal,
         foodRecipe,
         noneFoodRecipes
-
     }
-
 })
+

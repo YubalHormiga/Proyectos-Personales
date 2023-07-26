@@ -19,3 +19,4 @@ export const useNotificationStore = defineStore('notification', () => {
     message,
   }
 })
+

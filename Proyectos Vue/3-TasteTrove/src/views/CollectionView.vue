@@ -38,7 +38,7 @@ const meals = useMealsStore();
   font-weight: 900;
 }
 .meal-item {
-  flex: 0 0 40rem; /* Ancho constante de 40rem para cada elemento */
+  flex: 0 0 40rem;
   max-width: 100%;
   text-align: center;
   position: relative;

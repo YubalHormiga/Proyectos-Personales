@@ -4,7 +4,6 @@ import { useMealsStore } from './meals'
 import { useModalStore } from './modal'
 import { useNotificationStore } from './notification'
 
-
 export const useCollectionStore = defineStore('collection', () => {
 
     const collection = ref([])
@@ -26,7 +25,6 @@ export const useCollectionStore = defineStore('collection', () => {
         localStorage.setItem('collection', JSON.stringify(collection.value))
     }
 
-
     function addToCollection() {
         collection.value.push(meals.foodRecipe)
         notification.show = true
@@ -36,7 +34,6 @@ export const useCollectionStore = defineStore('collection', () => {
         collection.value = collection.value.filter(collection => collection.idMeal !== meals.foodRecipe.idMeal)
         notification.show = true
         notification.message = 'Se ha eliminado de tu colección'
-
     }
 
     function existInCollection(id) {
@@ -48,7 +45,6 @@ export const useCollectionStore = defineStore('collection', () => {
             removeCollection()
         } else {
             addToCollection()
-
         }
         modal.modal = false
     }
@@ -61,6 +57,7 @@ export const useCollectionStore = defineStore('collection', () => {
         collection,
         existInCollection,
         noneInCollection,
-
     }
 })
+
+
