@@ -2,8 +2,9 @@
 import { RouterView } from "vue-router";
 import Header from "./components/Header.vue";
 import Modal from "./components/Modal.vue";
-import { useModalStore } from "../src/stores/modal";
 import Notofication from "./components/Notofication.vue";
+import { useModalStore } from "../src/stores/modal";
+
 const modal = useModalStore();
 
 </script>

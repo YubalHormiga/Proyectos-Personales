@@ -9,7 +9,7 @@ const meals = useMealsStore();
   <div class="foodRecipes-container">
     <div v-if="meals.noneFoodRecipes" class="noneFoodRecipes">
       <h2>Añade Recetas a tu Colección</h2>
-      <p>Utiliza el Buscardor</p>
+      <p>Utiliza el Buscador</p>
     </div>
 
     <div v-else v-for="meal in meals.foodRecipes" :key="meal.idMeal">
