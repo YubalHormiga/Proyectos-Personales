@@ -14,7 +14,7 @@ En esta aplicación, utilicé las siguientes habilidades y tecnologías:
 - **Gestión de eventos**: Implementé la lógica para guardar, actualizar y eliminar tareas mediante la gestión de eventos.
 
 
-**[Enlace a la página del clima](https://todolist-yubalhh.netlify.app/)**
+**[Enlace a la página](https://todolist-yubalhh.netlify.app/)**
 
 ## Captura de pantalla
 ![Alt text](todo.PNG)
