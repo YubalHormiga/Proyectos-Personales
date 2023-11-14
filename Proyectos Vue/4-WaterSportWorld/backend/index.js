@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv'
 import colors from 'colors'
+import cors from 'cors'
 import { db } from './config/db.js'
 import servicesRoutes from './routes/servicesRoutes.js'
 
@@ -18,6 +19,20 @@ app.use(express.json())
 //ℂ𝕠𝕟𝕟𝕖𝕔𝕥 𝕥𝕠 𝕕𝕓
 db()
 
+//𝗖𝗼𝗻𝗳𝗶𝗴𝘂𝗿𝗲 𝗰𝗼𝗿𝘀
+
+const whiteList = [process.env.FRONTEND_URL, undefined]
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whiteList.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Error de CORS'))
+        }
+    }
+}
+app.use(cors(corsOptions))
+
 //𝔻𝕖𝕗𝕚𝕟𝕖 𝕣𝕦𝕥𝕖⁡
 app.use('/api/services', servicesRoutes)
 
@@ -26,5 +41,5 @@ const PORT = process.env.PORT || 4000
 
 //𝕊𝕥𝕒𝕣𝕥 𝕥𝕖𝕣𝕞𝕚𝕟𝕒𝕝
 app.listen(PORT, () => {
-    console.log(colors.black.bgGreen('The serve is running in port:',colors.blue.bold(PORT)))
+    console.log(colors.black.bgGreen('The serve is running in port:', colors.blue.bold(PORT)))
 })
