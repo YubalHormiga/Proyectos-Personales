@@ -4,8 +4,10 @@ import { RouterView, RouterLink } from "vue-router";
 
 <template>
   <div class="header-container">
-    <div class="logo-container">
-      <h1>Water<span>Sport</span>World</h1>
+    <div>
+      <RouterLink :to="{ name: 'bookings' }" class="logo">
+        <h1>Water<span>Sport</span>World</h1>
+      </RouterLink>
     </div>
     <div class="user-info-container">
       <p>Hola: Usuario</p>
@@ -38,77 +40,82 @@ span {
   display: flex;
   justify-content: space-between;
   margin: 0 2rem;
-  
 }
-
-.user-info-container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 4rem;
+.logo {
+  text-decoration: none;
 }
-.navegation-container{
-    display: flex;
-    justify-content: end;
-    gap: 2rem;
-    margin: 0 2rem;
+.user-info-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 4rem;
+}
+.navegation-container {
+  display: flex;
+  justify-content: end;
+  gap: 2rem;
+  margin: 0 2rem;
 }
 .logout-button {
-  min-width: 130px;
-  color: #fff;
-  padding:1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
   border-radius: 5px;
-  border: 2px solid #d90429;
-  background: #d90429;
+  border: #f44336;
+  padding: 1.5rem;
+  font-weight: bold;
+  transition: 0.3s;
+  background-color: #f44336;
 }
+
 .logout-button:hover {
-  background: #fff;
-  color: #d90429
+  opacity: 0.7;
 }
 
 .nav-button {
-  min-width: 130px;
-  height: 40px;
-  color: #fff;
-  padding: 5px 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
   border-radius: 5px;
-  border: 2px solid #57cc99;
-  background: #57cc99;
+  border: #a13368;
+  padding: 1.5rem;
+  font-weight: bold;
+  transition: 0.3s;
+  background-color: #a13368;
 }
+
+.logout-button:hover {
+  opacity: 0.7;
+}
+
 .nav-button:hover {
-  background: #fff;
-  color: #57cc99
+  opacity: 0.7;
 }
 .new-booking-link {
-  min-width: 130px;
-  height: 40px;
-  color: #fff;
-  padding: 5px 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  outline: none;
-  border-radius: 5px;
-  border: 2px solid #4433ff;
-  background: #4433ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
   text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  border-radius: 5px;
+  border: #000080;
+  padding: 1.5rem;
+  font-weight: bold;
+  transition: 0.3s;
+  background-color: #000080;
 }
+
 .new-booking-link:hover {
-  background: #fff;
-  color: #4433ff
+  opacity: 0.7;
 }
 </style>

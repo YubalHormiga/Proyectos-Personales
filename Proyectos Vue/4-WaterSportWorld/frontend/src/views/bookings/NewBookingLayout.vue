@@ -33,9 +33,12 @@ const route = useRoute();
 }
 
 .navigation__link {
+  font-weight: bold;
+  letter-spacing: 0.4rem;
   flex: 1;
   padding: 10px;
-  background-color: #00bfff;
+  background-color: #000080;
+  opacity: 0.2;
   text-transform: uppercase;
   text-align: center;
   text-decoration: none;
@@ -44,9 +47,10 @@ const route = useRoute();
 }
 
 .navigation__link:hover {
-  background-color: #555;
+  background-color: #413e3e;
 }
 .active-link {
-  background-color: #000080;
+  background-color:#242222;
+  opacity: 0.9;
 }
 </style>
