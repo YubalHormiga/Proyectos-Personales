@@ -1,15 +1,3 @@
-hermoso paisaje acuático:root {
-  --AzulClaro: #00BFFF;
-  --AzulOscuro: #000080;
-  --VerdeEsmeralda: #008000;
-  --Turquesa: #40E0D0;
-  --Blanco: #FFFFFF;
-  --AmarilloBrillante: #FFFF00;
-  --Naranja: #FFA500;
-  --GrisClaro: #CCCCCC;
-  --Beige: #F5F5DC;
-
-}
 
 html {
   box-sizing: border-box;

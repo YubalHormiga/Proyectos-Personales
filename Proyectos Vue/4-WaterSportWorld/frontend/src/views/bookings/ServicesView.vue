@@ -2,7 +2,7 @@
 import ServicesItem from "../../components/ServicesItem.vue";
 import { useServicesStore } from "../../stores/services";
 
-const services = useServicesStore();
+const servicesStore = useServicesStore();
 </script>
 
 <template>
@@ -11,7 +11,7 @@ const services = useServicesStore();
 
   <div class="services-container">
     <ServicesItem
-      v-for="service in services.services"
+      v-for="service in servicesStore.services"
       :key="service._id"
       :service="service"
     />

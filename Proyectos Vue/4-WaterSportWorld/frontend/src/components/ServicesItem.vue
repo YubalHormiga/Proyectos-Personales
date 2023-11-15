@@ -2,7 +2,7 @@
 import { formatCurrency } from "../helpers/index";
 import { useBookingsStore } from "../stores/bookings";
 
-const bookings = useBookingsStore();
+const bookingsStore = useBookingsStore();
 const props = defineProps({
   service: {
     type: Object,
@@ -12,9 +12,9 @@ const props = defineProps({
 
 <template>
   <div
-    @click="bookings.onServiceSelected(service)"
+    @click="bookingsStore.onServiceSelected(service)"
     class="service"
-    :class="{'selected': bookings.isServiceSeleted(service._id)}"
+    :class="{'selected': bookingsStore.isServiceSeleted(service._id)}"
   >
     <p class="title">{{ service.name }}</p>
     <p class="price">{{ formatCurrency(service.price) }}</p>

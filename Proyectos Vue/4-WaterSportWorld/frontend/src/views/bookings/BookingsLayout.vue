@@ -57,6 +57,7 @@ span {
   margin: 0 2rem;
 }
 .logout-button {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,6 +78,7 @@ span {
 }
 
 .nav-button {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,4 +120,5 @@ span {
 .new-booking-link:hover {
   opacity: 0.7;
 }
+
 </style>
