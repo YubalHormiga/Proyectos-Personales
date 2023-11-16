@@ -2,16 +2,35 @@
 import SelectedService from "../../components/SelectedService.vue";
 import { formatCurrency } from "../../helpers";
 import { useBookingsStore } from "../../stores/bookings.js";
+import Calendar from "primevue/calendar";
+import dayjs from "dayjs"; // Importar dayjs
+import { ref, watch, computed } from "vue";
 
+const dateNotFormated = ref(dayjs()); // Inicializar date como un objeto dayjs
 const bookingsStore = useBookingsStore();
-</script>
 
+const updateDate = (newDate) => {
+  dateNotFormated.value = newDate;
+};
+
+// Obtener la fecha formateada para mostrar
+const formattedDate = computed(() => {
+  return (bookingsStore.data = dateNotFormated.value.format("DD/MM/YY"));
+});
+
+// Vigilar cambios en la fecha y actualizar el formato cuando sea necesario
+watch(dateNotFormated, (newVal) => {
+  console.log("Fecha actualizada:", newVal.format("YYYY-MM-DD"));
+});
+</script>
 <template>
   <div class="reservation-details">
     <p class="reservation-information">
       A continuación revisa la información y confirma tu actividad
     </p>
-    <p  v-if="bookingsStore.noServicesSelected" class="noService">Debe seleccionar alguna actividad</p>
+    <p v-if="bookingsStore.noServicesSelected" class="noService">
+      Debe seleccionar alguna actividad
+    </p>
     <div v-else class="center-booking">
       <SelectedService
         class="booking-item"
@@ -20,10 +39,15 @@ const bookingsStore = useBookingsStore();
         :key="booking._id"
       />
       <p class="total-amount">
-        Total a pagar: <span>{{ formatCurrency(bookingsStore.totalAmount) }}</span>
+        Total a pagar:
+        <span>{{ formatCurrency(bookingsStore.totalAmount) }}</span>
       </p>
     </div>
+    <div class="card flex justify-content-center">
+      <Calendar :value="formattedDate" @input="updateDate" showIcon />
+    </div>
   </div>
+  <div class="calendar"></div>
 </template>
 
 <style scoped>
@@ -46,7 +70,7 @@ const bookingsStore = useBookingsStore();
   padding: 2rem;
   border-radius: 5px;
 }
-.noService{
+.noService {
   text-align: center;
   font-weight: bold;
   font-size: larger;
@@ -77,12 +101,11 @@ const bookingsStore = useBookingsStore();
   padding: 1rem;
   color: #fff;
   font-size: large;
-  
+
   letter-spacing: 2px;
 }
-.total-amount span{
+.total-amount span {
   font-size: x-large;
   font-weight: bold;
 }
-
 </style>

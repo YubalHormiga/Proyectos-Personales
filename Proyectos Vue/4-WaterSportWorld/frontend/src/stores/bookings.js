@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 export const useBookingsStore = defineStore('bookings', () => {
 
     const services = ref([])
+    const data = ref('')
 
     function onServiceSelected(service) {
         if (services.value.some(selectedService => selectedService._id === service._id)) {
@@ -35,8 +36,10 @@ export const useBookingsStore = defineStore('bookings', () => {
     })
 
 
+
     return {
         services,
+        data,
         onServiceSelected,
         isServiceSeleted,
         noServicesSelected,
