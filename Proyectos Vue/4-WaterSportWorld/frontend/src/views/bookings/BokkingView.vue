@@ -1,37 +1,51 @@
 <script setup>
+import { ref, watch, computed } from "vue";
+import Calendar from "primevue/calendar";
+import { format, isValid } from "date-fns";
+
 import SelectedService from "../../components/SelectedService.vue";
 import { formatCurrency } from "../../helpers";
 import { useBookingsStore } from "../../stores/bookings.js";
-import Calendar from "primevue/calendar";
-import dayjs from "dayjs"; // Importar dayjs
-import { ref, watch, computed } from "vue";
+import { useDateStore } from "../../stores/date.js";
 
-const dateNotFormated = ref(dayjs()); // Inicializar date como un objeto dayjs
+
 const bookingsStore = useBookingsStore();
+const dateStore = useDateStore();
+const dateBeforeFormatted = ref(bookingsStore.date);
 
 const updateDate = (newDate) => {
-  dateNotFormated.value = newDate;
+  dateBeforeFormatted.value = newDate;
+  dateStore.updateFormattedDate(format(newDate, "dd/MM/yyyy"));
 };
 
-// Obtener la fecha formateada para mostrar
 const formattedDate = computed(() => {
-  return (bookingsStore.data = dateNotFormated.value.format("DD/MM/YY"));
+  const dateValue = dateBeforeFormatted.value;
+
+  if (dateValue && isValid(dateValue)) {
+    return format(dateValue, "dd/MM/yyyy");
+  } else {
+    return "";
+  }
 });
 
-// Vigilar cambios en la fecha y actualizar el formato cuando sea necesario
-watch(dateNotFormated, (newVal) => {
-  console.log("Fecha actualizada:", newVal.format("YYYY-MM-DD"));
+watch(dateBeforeFormatted, (newVal) => {
+  console.log("Fecha actualizada:", format(newVal, "dd-MM-yyyy"));
+});
+
+watch(formattedDate, (newVal) => {
+  bookingsStore.updateDateFormatted(newVal);
 });
 </script>
+
 <template>
-  <div class="reservation-details">
-    <p class="reservation-information">
+  <div class="reservation-container">
+    <p class="reservation-info">
       A continuación revisa la información y confirma tu actividad
     </p>
-    <p v-if="bookingsStore.noServicesSelected" class="noService">
+    <p v-if="bookingsStore.noServicesSelected" class="no-service-message">
       Debe seleccionar alguna actividad
     </p>
-    <div v-else class="center-booking">
+    <div v-else class="booking-center">
       <SelectedService
         class="booking-item"
         v-for="booking in bookingsStore.services"
@@ -43,15 +57,41 @@ watch(dateNotFormated, (newVal) => {
         <span>{{ formatCurrency(bookingsStore.totalAmount) }}</span>
       </p>
     </div>
-    <div class="card flex justify-content-center">
-      <Calendar :value="formattedDate" @input="updateDate" showIcon />
+    <div class="date-and-hours-container ">
+      <div class="calendar-container">
+        <Calendar
+          v-model="dateBeforeFormatted"
+          @input="updateDate"
+          placeholder="Selecciona la fecha"
+          inline
+          dateFormat="dd/mm/yy"
+          :numberOfMonths="2"
+          :disabledDays="[0, 6]"
+          :minDate="new Date()"
+        />
+      </div>
+      <div class="hours-container">
+        <div v-for="hour in bookingsStore.hours" class="hour-item">
+          <button
+            @click="bookingsStore.time = hour"
+            class="hour-button"
+            :class="{ 'hourSelected': bookingsStore.time === hour }"
+          >
+            {{ hour }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="bookingsStore.isValidReservation" class="container-button">
+      <button @click="bookingsStore.createBooking" class="confirm-button">
+        Confimar Actividad
+      </button>
     </div>
   </div>
-  <div class="calendar"></div>
 </template>
 
 <style scoped>
-.reservation-details {
+.reservation-container {
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -59,7 +99,7 @@ watch(dateNotFormated, (newVal) => {
   justify-content: center;
 }
 
-.reservation-information {
+.reservation-info {
   text-align: center;
   font-weight: bold;
   font-size: larger;
@@ -70,7 +110,8 @@ watch(dateNotFormated, (newVal) => {
   padding: 2rem;
   border-radius: 5px;
 }
-.noService {
+
+.no-service-message {
   text-align: center;
   font-weight: bold;
   font-size: larger;
@@ -81,18 +122,21 @@ watch(dateNotFormated, (newVal) => {
   border-radius: 5px;
   letter-spacing: 2px;
 }
-.center-booking {
+
+.booking-center {
   max-width: 200rem;
-  margin: 0 auto; /* Centra el bloque horizontalmente */
+  margin: 0 auto;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
 }
+
 .booking-item {
   width: 100%;
   padding: 1rem;
 }
+
 .total-amount {
   text-align: center;
   display: inline-block;
@@ -101,11 +145,77 @@ watch(dateNotFormated, (newVal) => {
   padding: 1rem;
   color: #fff;
   font-size: large;
-
   letter-spacing: 2px;
 }
+
 .total-amount span {
   font-size: x-large;
   font-weight: bold;
+}
+
+.date-and-hours-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.calendar-container {
+  height: 100%;
+}
+
+.hours-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.hour-item {
+  display: flex;
+  flex: 1;
+}
+
+.hour-button {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+  color: #fff;
+  text-transform: uppercase;
+  color: rgba(161, 51, 104);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+  border-radius: 5px;
+}
+.hourSelected {
+  color: rgba(255, 255, 255);
+  background-color: rgba(161, 51, 104, 0.7);
+}
+.container-button {
+  display: flex;
+  justify-content: end;
+}
+.confirm-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  line-height: 1;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  border-radius: 5px;
+  border: #a13368;
+  padding: 1.5rem;
+  font-weight: bold;
+  transition: 0.3s;
+  background-color: #a13368;
+  letter-spacing: 2px;
+}
+.confirm-button:hover {
+  opacity: 0.7;
 }
 </style>
