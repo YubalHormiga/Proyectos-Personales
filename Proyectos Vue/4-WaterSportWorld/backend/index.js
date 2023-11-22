@@ -4,6 +4,7 @@ import colors from 'colors'
 import cors from 'cors'
 import { db } from './config/db.js'
 import servicesRoutes from './routes/servicesRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 
 //𝔼𝕟𝕧𝕚𝕣𝕠𝕟𝕞𝕖𝕟𝕥 𝕧𝕒𝕣𝕚𝕒𝕓𝕝𝕖𝕤
@@ -19,7 +20,7 @@ app.use(express.json())
 //ℂ𝕠𝕟𝕟𝕖𝕔𝕥 𝕥𝕠 𝕕𝕓
 db()
 
-//𝗖𝗼𝗻𝗳𝗶𝗴𝘂𝗿𝗲 𝗰𝗼𝗿𝘀
+//ℂ𝕠𝕟𝕗𝕚𝕘𝕦𝕣𝕖 𝕔𝕠𝕣𝕤
 
 const whiteList = [process.env.FRONTEND_URL, undefined]
 const corsOptions = {
@@ -35,6 +36,7 @@ app.use(cors(corsOptions))
 
 //𝔻𝕖𝕗𝕚𝕟𝕖 𝕣𝕦𝕥𝕖⁡
 app.use('/api/services', servicesRoutes)
+app.use('/api/auth', authRoutes)
 
 //𝔻𝕖𝕗𝕚𝕟𝕖 ℙ𝕠𝕣𝕥
 const PORT = process.env.PORT || 4000

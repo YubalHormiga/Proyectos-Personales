@@ -1,7 +1,7 @@
-import expres from 'express'
+import express from 'express'
 import { createService, getServices, getServiceById, updateService, deleteService } from '../controllers/servicesController.js'
 
-const router = expres.Router()
+const router = express.Router()
 
 router.route('/')
     .post(createService)
