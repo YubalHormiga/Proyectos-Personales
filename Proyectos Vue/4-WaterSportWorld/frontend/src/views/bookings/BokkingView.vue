@@ -8,7 +8,6 @@ import { formatCurrency } from "../../helpers";
 import { useBookingsStore } from "../../stores/bookings.js";
 import { useDateStore } from "../../stores/date.js";
 
-
 const bookingsStore = useBookingsStore();
 const dateStore = useDateStore();
 const dateBeforeFormatted = ref(bookingsStore.date);
@@ -52,12 +51,8 @@ watch(formattedDate, (newVal) => {
         :bookings="booking"
         :key="booking._id"
       />
-      <p class="total-amount">
-        Total a pagar:
-        <span>{{ formatCurrency(bookingsStore.totalAmount) }}</span>
-      </p>
     </div>
-    <div class="date-and-hours-container ">
+    <div class="date-and-hours-container">
       <div class="calendar-container">
         <Calendar
           v-model="dateBeforeFormatted"
@@ -70,17 +65,24 @@ watch(formattedDate, (newVal) => {
           :minDate="new Date()"
         />
       </div>
+
       <div class="hours-container">
         <div v-for="hour in bookingsStore.hours" class="hour-item">
           <button
             @click="bookingsStore.time = hour"
             class="hour-button"
-            :class="{ 'hourSelected': bookingsStore.time === hour }"
+            :class="{ hourSelected: bookingsStore.time === hour }"
           >
             {{ hour }}
           </button>
         </div>
       </div>
+    </div>
+    <div>
+      <p class="total-amount">
+        Total a pagar:
+        <span>{{ formatCurrency(bookingsStore.totalAmount) }}</span>
+      </p>
     </div>
     <div v-if="bookingsStore.isValidReservation" class="container-button">
       <button @click="bookingsStore.createBooking" class="confirm-button">
@@ -157,6 +159,7 @@ watch(formattedDate, (newVal) => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  margin-top: 4rem;
 }
 
 .calendar-container {
