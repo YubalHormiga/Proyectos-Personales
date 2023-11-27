@@ -1,5 +1,8 @@
 <script setup>
 import { RouterView, RouterLink } from "vue-router";
+import { useUserStore } from "../../stores/user";
+
+const user = useUserStore();
 </script>
 
 <template>
@@ -8,12 +11,14 @@ import { RouterView, RouterLink } from "vue-router";
       <h1>Water<span class="accent-text">Sport</span>World</h1>
     </RouterLink>
     <div class="user-info-container">
-      <p>Hello: User</p>
-      <button type="button" class="logout-button">Cerrar Sesión</button>
+      <p>Hello: {{ user.getUserName }}</p>
+      <button @click="user.logout" type="button" class="logout-button">Cerrar Sesión</button>
     </div>
   </div>
   <nav class="navigation-container">
-    <button class="nav-button">Mis Reservas</button>
+    <RouterLink :to="{ name: 'my-bookings' }" class="nav-button"
+      >Mis Reservas</RouterLink
+    >
     <RouterLink :to="{ name: 'new-booking' }" class="new-booking-link">
       Nueva Reserva
     </RouterLink>

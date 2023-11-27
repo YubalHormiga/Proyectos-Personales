@@ -29,7 +29,6 @@ const handleIconClick = (node, e) => {
 
 <template>
   <h1>Crea una cuenta</h1>
-  <p>Crea uan cuenta en WaterSportWorld</p>
 
   <FormKit
     id="registerForm"
@@ -92,6 +91,13 @@ const handleIconClick = (node, e) => {
   </FormKit>
 </template>
 <style scoped>
+h1 {
+  font-size: 4rem;
+  color: #000080;
+  opacity: 0.7;
+  text-align: center;
+  margin: 0;
+}
 .formkit-form {
   margin: 0 auto;
   border: none;

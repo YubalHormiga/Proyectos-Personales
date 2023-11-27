@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BookingsLayout from '../views/bookings/BookingsLayout.vue'
+import AuthAPI from '../api/AuthAPI.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +15,13 @@ const router = createRouter({
       path: '/reservas',
       name: 'bookings',
       component: BookingsLayout,
+      meta: { requieresAuth: true },
       children: [
+        {
+          path: '',
+          name: 'my-bookings',
+          component: () => import('../views/bookings/myBookingsView.vue')
+        },
         {
           path: 'nueva',
           component: () => import('../views/bookings/NewBookingLayout.vue'),
@@ -35,28 +42,42 @@ const router = createRouter({
       ]
     },
     {
-      path:'/auth',
+      path: '/auth',
       name: 'auth',
-      component: ()=>import('../views/auth/AuthLayaout.vue'),
-      children:[
+      component: () => import('../views/auth/AuthLayaout.vue'),
+      children: [
         {
-          path:'registro',
+          path: 'registro',
           name: 'register',
-          component: ()=>import('../views/auth/RegisterView.vue'),
+          component: () => import('../views/auth/RegisterView.vue'),
         },
         {
-          path:'confirmar-cuenta/:token',
+          path: 'confirmar-cuenta/:token',
           name: 'confirm-account',
-          component: ()=>import('../views/auth/ConfirmAccountView.vue'),
+          component: () => import('../views/auth/ConfirmAccountView.vue'),
         },
         {
-          path:'login',
+          path: 'login',
           name: 'login',
-          component: ()=>import('../views/auth/LoginView.vue'),
+          component: () => import('../views/auth/LoginView.vue'),
         },
       ]
     }
   ]
+})
+
+router.beforeEach(async (to, front, next) => {
+  const requieresAuth = to.matched.some(url => url.meta.requieresAuth)
+  if (requieresAuth) {
+    try {
+      await AuthAPI.auth()
+      next()
+    } catch (error) {
+      next({ name: 'login' })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

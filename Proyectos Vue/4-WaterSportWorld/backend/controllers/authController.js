@@ -1,5 +1,6 @@
 import User from "../models/User.js"
 import { sendEmailVerification } from "../emails/authEmailService.js"
+import { generateJWT } from "../utils/index.js"
 
 const register = async (req, res) => {
 
@@ -12,7 +13,7 @@ const register = async (req, res) => {
 
     const { email, password, name } = req.body
     const userExists = await User.findOne({ email })
-    
+
     if (userExists) {
         const error = new Error('Usuario ya registrado')
         return res.status(400).json({
@@ -84,8 +85,9 @@ const login = async (req, res) => {
     }
 
     if (await user.checkPassword(password)) {
+        const token = generateJWT(user.id)
         res.json({
-            msg: 'Usuario autenticado'
+            token
         })
     } else {
         const error = new Error('El password es incorrecto')
@@ -96,8 +98,14 @@ const login = async (req, res) => {
     }
 }
 
+const user = (req, res) => {
+    const { user } = req
+    res.json(user)
+}
+
 export {
     register,
     verifyAccount,
-    login
+    login,
+    user
 }
