@@ -5,6 +5,7 @@ import cors from 'cors'
 import { db } from './config/db.js'
 import servicesRoutes from './routes/servicesRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import bookingRoutes from './routes/bookingRoutes.js'
 
 
 //𝔼𝕟𝕧𝕚𝕣𝕠𝕟𝕞𝕖𝕟𝕥 𝕧𝕒𝕣𝕚𝕒𝕓𝕝𝕖𝕤
@@ -37,6 +38,7 @@ app.use(cors(corsOptions))
 //𝔻𝕖𝕗𝕚𝕟𝕖 𝕣𝕦𝕥𝕖⁡
 app.use('/api/services', servicesRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/bookings', bookingRoutes)
 
 //𝔻𝕖𝕗𝕚𝕟𝕖 ℙ𝕠𝕣𝕥
 const PORT = process.env.PORT || 4000
