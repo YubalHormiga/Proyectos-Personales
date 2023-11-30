@@ -5,5 +5,9 @@ export default {
         return api.post('/bookings', data)
     },
     getByDate(date) {
-        return api.get(`/bookings?date=${date}`)    }
+        return api.get(`/bookings?date=${date}`)
+    },
+    getUserBookings(userId){
+        return api.get(`/users/${userId}/bookings`)
+    }
 }

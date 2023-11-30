@@ -70,7 +70,11 @@ watch(formattedDate, (newVal) => {
           />
         </div>
 
-        <div v-if="bookingsStore.isDateSelected" class="hours-container">
+        <div
+          ref="hoursContainer"
+          v-if="bookingsStore.isDateSelected"
+          class="hours-container"
+        >
           <div class="hour-item" v-for="hour in bookingsStore.hours">
             <button
               @click="bookingsStore.time = hour"
@@ -174,14 +178,16 @@ watch(formattedDate, (newVal) => {
 }
 
 .date-and-hours-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column; /* Cambiamos a dirección de columna */
+  align-items: center; /* Centramos los elementos en el eje transversal */
   gap: 2rem;
   margin-top: 4rem;
 }
 
 .calendar-container {
   height: 100%;
+  margin: auto;
 }
 
 .hours-container {
