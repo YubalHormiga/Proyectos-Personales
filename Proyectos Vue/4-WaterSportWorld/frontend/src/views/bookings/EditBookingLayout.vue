@@ -1,30 +1,39 @@
 <script setup>
 import { onMounted } from "vue";
-import { RouterLink, useRoute } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import BookingAPI from "../../api/BookingAPI";
 import { useBookingsStore } from "../../stores/bookings";
 
-const route = useRoute();
 const bookingStore = useBookingsStore();
+const route = useRoute();
+const router = useRouter();
 
-onMounted(() => {
-  bookingStore.clearBookingData();
+const { id } = route.params;
+
+onMounted(async () => {
+  try {
+    const { data } = await BookingAPI.getById(id);
+    bookingStore.setSelectBooking(data);
+  } catch (error) {
+    router.push({ name: "my-bookings" });
+  }
 });
 </script>
 
 <template>
   <nav class="navigation">
     <RouterLink
-      :to="{ name: 'new-booking' }"
+      :to="{ name: 'edit-booking' }"
       class="navigation__link"
-      :class="{ 'active-link': route.name === 'new-booking' }"
+      :class="{ 'active-link': route.name === 'edit-booking' }"
     >
       Servicios
     </RouterLink>
 
     <RouterLink
-      :to="{ name: 'booking-details' }"
+      :to="{ name: 'edit-booking-details' }"
       class="navigation__link"
-      :class="{ 'active-link': route.name === 'booking-details' }"
+      :class="{ 'active-link': route.name === 'edit-booking-details' }"
     >
       Resumen Reserva
     </RouterLink>

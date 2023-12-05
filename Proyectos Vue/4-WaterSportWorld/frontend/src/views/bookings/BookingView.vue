@@ -27,9 +27,9 @@ const formattedDate = computed(() => {
   }
 });
 
-// watch(dateBeforeFormatted, (newVal) => {
-//   console.log("Fecha actualizada:", format(newVal, "dd-MM-yyyy"));
-// });
+watch(dateBeforeFormatted, (newVal) => {
+  console.log("Fecha actualizada:", format(newVal, "dd-MM-yyyy"));
+});
 
 watch(formattedDate, (newVal) => {
   bookingsStore.updateDateFormatted(newVal);
@@ -98,7 +98,7 @@ watch(formattedDate, (newVal) => {
       </div>
     </div>
     <div v-if="bookingsStore.isValidReservation" class="container-button">
-      <button @click="bookingsStore.createBooking" class="confirm-button">
+      <button @click="bookingsStore.saveBooking" class="confirm-button">
         Confimar Actividad
       </button>
     </div>

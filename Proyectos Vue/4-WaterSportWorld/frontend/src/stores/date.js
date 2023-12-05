@@ -18,13 +18,21 @@ export const useDateStore = defineStore('date', () => {
   }
   function displayDate(date) {
     const newDate = parseISO(date)
-    const formattedDate = format(newDate, 'PPPP',{locale:es})
+    const formattedDate = format(newDate, 'PPPP', { locale: es })
     return formattedDate
-}
+
+  }
+
+  function convertToDDMMYYYY(isoDate) {
+    const newDate = new Date(isoDate)
+    const formattedDate = format(newDate, 'dd/MM/yyyy')
+    return formattedDate
+  }
   return {
     formattedDate,
     updateFormattedDate,
     convertToISO,
-    displayDate
+    displayDate,
+    convertToDDMMYYYY
   };
 });

@@ -1,8 +1,11 @@
 <script setup>
 import { useDateStore } from "../stores/date";
+import { useBookingsStore } from "../stores/bookings";
 import { formatCurrency } from "../helpers";
+import { RouterLink } from "vue-router";
 
 const userStore = useDateStore();
+const bookingStore = useBookingsStore();
 
 const props = defineProps({
   booking: {
@@ -33,8 +36,12 @@ const props = defineProps({
       <span class="currency">{{ formatCurrency(booking.totalAmount) }}</span>
     </p>
     <div class="bookings-actions">
-      <button class="delete-appointment-btn">Eliminar Actividad</button>
-      <button class="edit-appointment-btn">Editar Actividad</button>
+      <button @click="bookingStore.cancelBooking(booking._id)" class="delete-appointment-btn">Eliminar Actividad</button>
+      <RouterLink
+        :to="{name:'edit-booking', params:{id: booking._id}}"
+        class="edit-appointment-btn"
+        >Editar Actividad</RouterLink
+      >
     </div>
   </div>
 </template>
@@ -69,6 +76,7 @@ const props = defineProps({
 
 .delete-appointment-btn,
 .edit-appointment-btn {
+  text-decoration: none;
   font-weight: 600;
   font-size: 1.5rem;
   margin: 1rem;

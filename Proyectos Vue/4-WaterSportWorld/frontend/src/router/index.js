@@ -35,8 +35,23 @@ const router = createRouter({
               path: 'detalles',
               name: 'booking-details',
               component: () => import('../views/bookings/BookingView.vue')
-            }
-
+            },
+          ]
+        },
+        {
+          path:':id/editar',
+          component: ()=> import('../views/bookings/EditBookingLayout.vue'),
+          children: [
+            {
+              path: '',
+              name: 'edit-booking',
+              component: () => import('../views/bookings/ServicesView.vue')
+            },
+            {
+              path: 'detalles',
+              name: 'edit-booking-details',
+              component: () => import('../views/bookings/BookingView.vue')
+            },
           ]
         }
       ]

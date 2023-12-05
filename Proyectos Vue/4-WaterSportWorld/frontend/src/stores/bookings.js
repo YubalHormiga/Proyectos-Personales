@@ -3,12 +3,13 @@ import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import BookingAPI from '../api/BookingAPI'
-import { useDateStore } from './date'
+import { useDateStore } from '../stores/date'
+import { useUserStore } from '../stores/user'
 
 export const useBookingsStore = defineStore('bookings', () => {
 
-    const dateStore = useDateStore()
 
+    const bookingId = ref('')
     const services = ref([])
     const date = ref('')
     const hours = ref([])
@@ -17,6 +18,9 @@ export const useBookingsStore = defineStore('bookings', () => {
 
     const toast = inject("toast")
     const router = useRouter()
+
+    const dateStore = useDateStore()
+    const userStore = useUserStore()
 
 
 
@@ -29,39 +33,43 @@ export const useBookingsStore = defineStore('bookings', () => {
     })
 
     watch(date, async () => {
-        time.value = ''
-        if (date.value) {
-            const { data } = await BookingAPI.getByDate(date.value)
-            bookingsByDate.value = data
-            console.log(data)
-        }
-    })
-    async function createBooking() {
-        const booking = {
-            services: services.value.map(service => service._id),
-            date: dateStore.convertToISO(date.value),
-            hours: time.value,
-            totalAmount: totalAmount.value
-        }
+        time.value = '';
+        if (date.value === '') return;
 
         try {
-            const { data } = await BookingAPI.create(booking)
-            toast.open({
-                message: data.msg,
-                type: 'success'
-            })
-            clearBookingData()
-            router.push({ name: 'my-bookings' })
+            const { data } = await BookingAPI.getByDate(date.value);
+            console.log(data);
+
+            if (bookingId.value) {
+                const filteredBookings = data.filter(booking => booking._id === bookingId.value);
+
+                if (filteredBookings.length > 0) {
+                    bookingsByDate.value = data.filter(booking => booking._id !== bookingId.value);
+                    time.value = filteredBookings[0].hours;
+                } else {
+                    time.value = '';
+                }
+            } else {
+                bookingsByDate.value = data;
+            }
         } catch (error) {
-            console.log(error)
+            console.error('Error fetching data:', error);
+            console.error('Full error stack:', error.stack);
+            // Puedes agregar lógica adicional de manejo de errores aquí si es necesario.
         }
+    });
+
+
+    function setSelectBooking(booking) {
+        console.log(booking)
+        services.value = booking.services
+        date.value = dateStore.convertToDDMMYYYY(booking.date)
+        time.value = booking.hours
+        bookingId.value = booking._id
+
+        // console.log(bookingId.value)
     }
 
-    function clearBookingData() {
-        services.value = []
-        date.value = ''
-        time.value = ''
-    }
 
     function onServiceSelected(service) {
         if (services.value.some(selectedService => selectedService._id === service._id)) {
@@ -72,6 +80,73 @@ export const useBookingsStore = defineStore('bookings', () => {
                 return;
             }
             services.value.push(service)
+        }
+    }
+
+    async function saveBooking() {
+        const booking = {
+            services: services.value.map(service => service._id),
+            date: dateStore.convertToISO(date.value),
+            hours: time.value,
+            totalAmount: totalAmount.value
+        }
+        // console.log(bookingId.value)
+        // return
+
+        if (bookingId.value) {
+            try {
+                const { data } = await BookingAPI.update(bookingId.value, booking)
+                toast.open({
+                    message: data.msg,
+                    type: 'success'
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
+
+        } else {
+
+            try {
+                const { data } = await BookingAPI.create(booking)
+                toast.open({
+                    message: data.msg,
+                    type: 'success'
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        clearBookingData()
+        userStore.getUserBookings()
+
+        router.push({ name: 'my-bookings' })
+    }
+
+
+
+
+    function clearBookingData() {
+        bookingId.value = ''
+        services.value = []
+        date.value = ''
+        time.value = ''
+    }
+
+    async function cancelBooking(id) {
+        try {
+            const { data } = await BookingAPI.delete(id)
+            toast.open({
+                message: data.msg,
+                type: 'success'
+            })
+            userStore.userBookings = userStore.userBookings.filter(booking => booking._id !== id)
+        } catch (error) {
+            toast.open({
+                message: error.response.data.msg,
+                type: 'error'
+            })
         }
     }
 
@@ -117,7 +192,9 @@ export const useBookingsStore = defineStore('bookings', () => {
         date,
         hours,
         time,
-        createBooking,
+        setSelectBooking,
+        saveBooking,
+        cancelBooking,
         updateDateFormatted,
         onServiceSelected,
         isServiceSeleted,
