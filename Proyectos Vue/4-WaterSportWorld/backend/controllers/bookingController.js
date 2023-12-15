@@ -1,6 +1,7 @@
-import Booking from '../models/Booking.js'
-import { validateObjectId, handleNotFoundError } from '../utils/index.js'
 import { parse, formatISO, startOfDay, endOfDay, isValid } from 'date-fns'
+import Booking from '../models/Booking.js'
+import { validateObjectId, handleNotFoundError, formatDate } from '../utils/index.js'
+import { sendEmailNewBooking, sendEmailUpdateBooking, sendEmailCancelBooking } from '../emails/bookingEmailService.js'
 
 
 const createBooking = async (req, res) => {
@@ -9,10 +10,17 @@ const createBooking = async (req, res) => {
     booking.user = req.user._id.toString()
     try {
         const newBooking = new Booking(booking)
-        await newBooking.save()
+        const result = await newBooking.save()
+
+        await sendEmailNewBooking({
+            date: formatDate(result.date),
+            time: result.hours
+        })
+
         res.json({
             msg: 'Cita Almacenada Correctamente'
         })
+
     } catch (error) {
         console.log(error)
     }
@@ -65,7 +73,6 @@ const getBookingById = async (req, res) => {
 
 const updateBooking = async (req, res) => {
 
-    console.log('desde updateBooking')
     const { id } = req.params
 
     if (validateObjectId(id, res)) return
@@ -92,6 +99,11 @@ const updateBooking = async (req, res) => {
 
     try {
         const result = await booking.save()
+
+        await sendEmailUpdateBooking({
+            date: formatDate(result.date),
+            time: result.hours
+        })
         res.json({ msg: "Actividad almacenada correctamente" })
     } catch (error) {
         console.log(error)
@@ -118,7 +130,12 @@ const deleteBooking = async (req, res) => {
     }
 
     try {
-        await booking.deleteOne()
+
+        const result = await booking.deleteOne()
+        // await sendEmailCancelBooking({
+        //     date: formatDate(result.date),
+        //     time: result.hours
+        // })
         res.json({ msg: 'Actividad cancelada correctamente' })
     } catch (error) {
         console.log(error)

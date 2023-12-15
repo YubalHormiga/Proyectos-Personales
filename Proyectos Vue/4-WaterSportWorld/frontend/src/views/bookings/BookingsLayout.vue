@@ -6,24 +6,27 @@ const user = useUserStore();
 </script>
 
 <template>
-  <div class="header-container">
-    <RouterLink :to="{ name: 'bookings' }" class="logo-link">
-      <h1>Water<span class="accent-text">Sport</span>World</h1>
-    </RouterLink>
-    <div class="user-info-container">
-      <p>Hello: {{ user.getUserName }}</p>
-      <button @click="user.logout" type="button" class="logout-button">Cerrar Sesión</button>
+  <div>
+    <!-- Header Section -->
+    <div class="header-container">
+      <RouterLink :to="{ name: 'home' }" class="logo-link">
+        <h1>Water<span class="accent-text">Sport</span>World</h1>
+      </RouterLink>
+      <div class="user-info-container">
+        <p class="user-greeting">Hola: <span class="user-name">{{ user.getUserName }}</span></p>
+        <button @click="user.logout" type="button" class="logout-button">Cerrar Sesión</button>
+      </div>
     </div>
+
+    <!-- Navigation Section -->
+    <nav class="navigation-container">
+      <RouterLink :to="{ name: 'my-bookings' }" class="nav-button">Mis Reservas</RouterLink>
+      <RouterLink :to="{ name: 'new-booking' }" class="new-booking-link">Nueva Reserva</RouterLink>
+    </nav>
+
+    <!-- Router View Section -->
+    <RouterView />
   </div>
-  <nav class="navigation-container">
-    <RouterLink :to="{ name: 'my-bookings' }" class="nav-button"
-      >Mis Reservas</RouterLink
-    >
-    <RouterLink :to="{ name: 'new-booking' }" class="new-booking-link">
-      Nueva Reserva
-    </RouterLink>
-  </nav>
-  <RouterView />
 </template>
 
 <style scoped>
@@ -35,9 +38,20 @@ h1 {
   text-align: center;
   margin: 0;
 }
+
 .accent-text {
   color: #000080;
   opacity: 0.7;
+}
+
+.user-greeting {
+  font-size: large;
+  font-weight: bold;
+  color: #fff;
+}
+
+.user-name {
+  color: #000080;
 }
 
 @media (min-width: 640px) {
@@ -51,6 +65,7 @@ h1 {
 .logo-link {
   text-decoration: none;
 }
+
 .user-info-container {
   display: flex;
   justify-content: space-evenly;
@@ -94,6 +109,7 @@ h1 {
   padding: 1.5rem;
   background-color: #f44336;
 }
+
 .logout-button:hover,
 .nav-button:hover,
 .new-booking-link:hover {
@@ -108,6 +124,7 @@ h1 {
   background-color: #a13368;
   margin-bottom: 1rem;
 }
+
 @media (min-width: 640px) {
   .nav-button {
     width: auto;
@@ -122,3 +139,4 @@ h1 {
   background-color: #000080;
 }
 </style>
+

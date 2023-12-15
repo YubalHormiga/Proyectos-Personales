@@ -121,6 +121,7 @@ watch(formattedDate, (newVal) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 2rem;
 }
 
 .reservation-info {
@@ -229,7 +230,7 @@ watch(formattedDate, (newVal) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin-bottom: 4rem;
   line-height: 1;
   text-decoration: none;
   color: #ffffff;
