@@ -1,0 +1,269 @@
+:root {
+  --primary-1: #885400;
+  --primary-2: #dd8900;
+  --primary-3: #2b2b2b;
+  --primary-4: #333333;
+  --primary-5: #EFEFEF;
+  --primary-6: #007bff;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.35%;
+  background: var(--bg-200);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* ⁡⁣⁢⁣𝔾𝕝𝕠𝕓𝕒𝕝⁡ */
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2.5rem;
+  line-height: 2;
+  margin: 0;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 7rem;
+  color: var(--primary-5);
+  text-shadow: 0.5rem 0.3rem var(--primary-4);
+  margin: 0 auto;
+}
+
+h1 span {
+  font-size: 6rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 4rem;
+}
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ⁡⁣⁢⁣ℍ𝕖𝕒𝕕𝕖𝕣 ℂ𝕠𝕞𝕡𝕠𝕟𝕖𝕟𝕥 ⁡*/
+header {
+  background-image: url("/img/meal.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 4rem;
+}
+
+.favorites {
+  background-image: url("/img/collection.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 35%;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 3rem;
+}
+
+.router-nav {
+  display: flex;
+  gap: 5rem;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 3rem;
+  color: var(--primary-4);
+  font-weight: 800;
+  text-shadow: 0.2rem 0.2rem var(--primary-4);
+}
+
+.active-link {
+  color: var(--primary-5);
+}
+
+.search-labels {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: larger;
+  color: var(--primary-3);
+
+}
+
+.search-labels select {
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  padding: 2rem;
+  background-color: var(--bg-100);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  margin: 2rem auto;
+  
+}
+
+.search-labels input[type="text"] {
+  height: 3rem;
+  color:var(--primary-3);
+  font-size: large;
+  border: none;
+  padding: 5px;
+}
+
+.search-select {
+  width: 100%;
+  height: 3rem;
+  background-color: #ffffff;
+  color: var(--primary-3);
+  font-size: large;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.full-width.search-select option:first-child {
+  text-align: center;
+}
+
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: large;
+  background-color: var(--primary-1);
+  color: var(--primary-5);
+}
+
+/* ⁡⁣⁢⁣𝕄𝕠𝕕𝕒𝕝 ℂ𝕠𝕞𝕡𝕠𝕟𝕖𝕟𝕥⁡ */
+.modal {
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.modal-content {
+  background-color: var(--primary-5);
+  margin: 4rem auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+  display: flex;
+  gap: 4rem;
+}
+
+/* Botón para el modal */
+.closeBottonButton {
+  width: 100%;
+  padding: 1rem;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: large;
+  background-color:var(--primary-1);
+  color: var(--primary-5);
+  transition: background-color 0.3s ease;
+}
+
+.closeBottonButton:hover {
+  background-color: var(--primary-3);
+}
+
+.closeTopButton {
+  /* display: block; */
+  width: 5rem;
+  height: 5rem;
+  float: right;
+  font-size: 4rem;
+  font-weight: bold;
+  background-color: var(--primary-2);
+  color: var(--primary-1);
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.closeTopButton:hover,
+.closeTopButton:focus {
+  color: var(--primary-2);
+  background-color:var(--primary-1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.addColletion {
+  width: 100%;
+  padding: 1rem;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: large;
+  background-color: var(--primary-2);
+  color: var(--primary-5);
+  transition: background-color 0.3s ease;
+}
+
+.addColletion:hover {
+  background-color:var(--primary-3);
+}
+
+.ingredient-title,
+.recipe-title {
+  font-weight: bold;
+  color: var(--primary-6);
+}
+
+/*⁡⁣⁢⁣ ℕ𝕠𝕗𝕚𝕥𝕚𝕔𝕒𝕥𝕚𝕠𝕟 ℂ𝕠𝕞𝕡𝕠𝕟𝕖𝕟𝕥⁡ */
+.floating-notification {
+  position: fixed;
+  bottom: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-4);
+  color: var(--primary-5);
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
