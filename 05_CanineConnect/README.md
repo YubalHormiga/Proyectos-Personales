@@ -1,41 +1,40 @@
-# Quasar App (practica)
+# Quasar App (CanineConnect: Contenido que Enamora y Ayuda)
 
-A Quasar Project
+Bienvenido a nuestro proyecto en construcción. Nos apasionan los perros y estamos comprometidos con su bienestar. En nuestra página encontrán:
 
-## Install the dependencies
-```bash
-yarn
-# or
+- **Misión y Valores:** Descubre por qué amamos a los perros y cuáles son nuestros valores fundamentales.
+- **Información Útil:** Guías prácticas sobre cuidado, entrenamiento y características de razas.
+
+- **Historias Inspiradoras:** Conoce cómo los perros cambian vidas a través de adopciones y experiencias de rescate.
+
+- **Recursos Comunitarios:** Directorio de asociaciones, blog de expertos y calendario de eventos.
+
+- **Llamado a la Acción:** Únete a nuestra causa donando, siendo voluntario o apadrinando un perro.
+
+¡Ayúdanos a difundir el amor por los perros y a construir una comunidad solidaria!
+
+This template should help get you started developing with Vue 3 in Vite.
+
+
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
 ```
 
+### Compile and Minify for Production
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
+```sh
+npm run build
 ```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).

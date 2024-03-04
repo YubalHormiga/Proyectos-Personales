@@ -1,0 +1,30 @@
+/*Globales*/
+
+html {
+  box-sizing: border-box;
+  font-size: 62.35%;
+  /*1rem = 10px*/
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.6rem;
+  line-height: 2;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 0 0.5rem;
+}
+@media (min-width: 640px) { 
+  .container {
+    max-width: 120rem;
+    margin: 0 auto;
+  }
+}
