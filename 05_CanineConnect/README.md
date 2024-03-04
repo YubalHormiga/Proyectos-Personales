@@ -1,4 +1,4 @@
-# Quasar App (CanineConnect: Contenido que Enamora y Ayuda)
+# CanineConnect: Contenido que Enamora y Ayuda
 
 Bienvenido a nuestro proyecto en construcción. Nos apasionan los perros y estamos comprometidos con su bienestar. En nuestra página encontrán:
 
