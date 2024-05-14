@@ -4,10 +4,15 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <nav class="nav">
-    <router-link class="nav-link" to="#">Consejos de cuidado </router-link>
-    <router-link class="nav-link" :to="{ name: 'breeds' }">Razas de perros</router-link>
-    <router-link class="nav-link" to="#">Tenencia responsable</router-link>
+    <router-link active-class="active-link" class="nav-link" :to="{ name: 'care' }"
+      >Cuidado Canino
+    </router-link>
+    <router-link active-class="active-link" class="nav-link" :to="{ name: 'breeds' }"
+      >Razas de perros</router-link
+    >
+    <router-link active-class="active-link" class="nav-link" :to="{name:'stewardship'}">Tenencia responsable</router-link>
   </nav>
+  
   <RouterView />
 </template>
 <style scoped>
@@ -27,6 +32,10 @@ nav {
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.7);
   display: inline-block;
- 
 }
+.active-link {
+color: rgba(184, 89, 89, 0.7);
+font-weight:700;
+}
+
 </style>

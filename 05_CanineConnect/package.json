@@ -9,10 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/themes": "^1.6.2",
+    "@formkit/vue": "^1.6.2",
     "axios": "^1.6.7",
+    "firebase": "^10.11.1",
     "pinia": "^2.1.7",
+    "uid": "^2.0.2",
     "vue": "^3.4.15",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-toast-notification": "^3.1.2",
+    "vuefire": "^3.1.23"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",

@@ -19,12 +19,20 @@ body {
   margin: 0 auto;
 }
 
+/* 
 .container {
-  margin: 0 0.5rem;
+  padding: 0 1rem;
+  text-align: justify;
+
 }
-@media (min-width: 640px) { 
+@media (min-width: 640px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;
   }
+} */
+.whisper-regular {
+  font-family: "Whisper", cursive;
+  font-weight: 400;
+  font-style: normal;
 }

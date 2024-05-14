@@ -1,211 +1,83 @@
-//BreddsView.vue
-
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import { UseDogsStore } from "@/stores/dogStore.js";
-import { breedoptions } from "@/api/dogsApi.js";
-
-import usePagination from "@/composables/usePagination.js";
-import Spinner from "@/components/Spinner.vue";
+import { onMounted, ref } from "vue";
+import { fetchData } from "@/api/DogsAPI.js";
+import { UseDogsStore } from "@/stores/dogStore";
 
 const dogs = UseDogsStore();
-const { dogsToShow, updateDogsToShow, currentPage, totalPages } =
-  usePagination();
-
-const expanded = ref(false);
-const selectedBreed = ref(false);
 
 onMounted(async () => {
-  try {
-    await dogs.getData();
-    dogsToShow.value = dogs.dogData.value;
-    selectedBreed.value = false;
-    updateDogsToShow(currentPage.value);
-  } catch (error) {
-    // Manejar errores en la carga inicial de datos
-    console.error("Error al cargar datos iniciales:", error);
-    // Manejar el error de otra manera
-    throw new Error("Error al cargar datos iniciales");
-  }
+  dogs.dogsData.value = await fetchData();
+  console.log(fetchData());
 });
-
-watch(
-  () => dogs.selectedBreed,
-  (newBreed) => {
-    selectedBreed.value = !!newBreed;
-    dogsToShow.value = selectedBreed.value
-      ? dogs.dogsSameBreed()
-      : dogs.dogData;
-  }
-);
-
-watch(currentPage, (newPage) => {
-  updateDogsToShow(newPage);
-});
-
-watch(selectedBreed, () => {
-  updateDogsToShow(currentPage.value);
-});
-
-const prevIcon = "arrow_back";
-const nextIcon = "arrow_forward";
 </script>
 
 <template>
-  <div v-if="dogs.loadingspinner" class="loading-spinner">
-    <Spinner />
-  </div>
-  <div v-else>
-    <div class="breed-selector">
-      <div class="breed-dropdown">
-        <label for="selectedBreed">Select Breed</label>
-        <select id="selectedBreed" v-model="dogs.selectedBreed">
-          <option
-            v-for="(option, index) in breedoptions"
-            :key="index"
-            :value="option.value"
-          >
-            {{ option.label }}
-          </option>
-        </select>
+  <div
+    class="card-container"
+    v-for="dog in dogs"
+    :key="dog.id"
+  >
+    <div class="card">
+      <div class="card-face front">
+        {{ dog.name }}
+      </div>
+      <div class="card-face back">
+        <p>Información adicional</p>
+        <a href="#">Más información</a>
+        <button onclick="addToFavorites()">Agregar a favoritos</button>
       </div>
     </div>
-    <div class="container">
-      <!-- Card -->
-      <!-- Loop starts here -->
-      <div
-        v-for="(dato, index) in dogsToShow"
-        :key="index"
-        class="card-container"
-      >
-        <div class="card-wrapper">
-          <img
-            class="card-image"
-            :src="dato.image?.url || '../../public/cat.jpg'"
-            :alt="dato.name"
-          />
-          <div class="card-section">
-            <div class="breed-group">
-              {{ dato.breed_group }}
-            </div>
-            <div class="dog-name">{{ dato.name }}</div>
-            <div class="bred-for">{{ dato.bred_for }}</div>
-          </div>
-          <div class="card-buttons">
-            <button class="share-btn" flat color="brown-10">Share</button>
-            <button class="favorite-btn" @click="dogs.addToFavorites(dato.id)">
-              <i class="icon">favorite</i>
-            </button>
-            <div class="spacer"></div>
-            <button class="expand-btn" @click="expanded = !expanded">
-              <i v-if="expanded" class="icon">keyboard_arrow_up</i>
-              <i v-else class="icon">keyboard_arrow_down</i>
-            </button>
-          </div>
-          <div class="additional-info">
-            <div v-show="expanded">
-              <hr class="divider" />
-              <div class="temperament-info">
-                <span class="label">Temperament: </span>
-                {{ dato.temperament }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Loop ends here -->
-    </div>
-  </div>
-
-  <div v-if="totalPages > 1" class="pagination-section">
-    <button :disabled="currentPage === 1" @click="currentPage -= 1">
-      {{ prevIcon }}
-    </button>
-
-    <span>{{ currentPage }} / {{ totalPages }}</span>
-
-    <button :disabled="currentPage === totalPages" @click="currentPage += 1">
-      {{ nextIcon }}
-    </button>
   </div>
 </template>
-
 <style scoped>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
 .card-container {
-  background-color: red;
-  width: 19rem;
+  width: 300px;
+  height: 400px;
+  perspective: 1000px;
+  margin: 50px auto;
 }
 
-.card-wrapper {
+.card {
   width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  background-image: url("../../../public/images/dogs.jpg");
 }
 
-.card-image {
+.card:hover {
+  transform: rotateY(180deg);
+}
+
+.card-face {
   width: 100%;
-  height: 20rem;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.card-section,
-.card-buttons {
-  width: 100%;
+.front {
+  background: url("tu-imagen.jpg") center/cover;
 }
 
-.breed-selector {
-  
+.back {
+  background-color: #f0f0f0;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.breed-dropdown {
-  
-}
-
-.breed-group,
-.dog-name,
-.bred-for {
-  
-}
-
-.card-buttons {
-  
-}
-
-.share-btn,
-.favorite-btn,
-.expand-btn {
-  
-}
-
-.spacer {
-  
-}
-
-.additional-info {
-  
-}
-
-.divider {
-  
-}
-
-.temperament-info {
-  
-}
-
-.pagination-section {
-  margin-top: 20px;
-}
-
-.pagination-section button {
-  
-}
-
-.pagination-section .active {
-  
+.back a {
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
 }
 </style>
