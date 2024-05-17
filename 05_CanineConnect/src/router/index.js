@@ -57,12 +57,17 @@ const router = createRouter({
     {
       path: "/objetos",
       name: "lost-items",
-      component: () => import("../views/FoundItems.vue"),
+      component: () => import("../views/items/LostItemsView.vue"),
     },
     {
       path: "/objetos/encontrados",
       name: "found-items",
-      component: () => import("../views/NewFoundItems.vue"),
+      component: () => import("../views/items/FoundItems.vue"),
+    },
+    {
+      path: "/objetos/editar/:id",
+      name: "editItemFound",
+      component: () => import("../views/items/EditItemView.vue"),
     },
     {
       path: "/regalo",
@@ -83,7 +88,7 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: () => import("../views/Login.vue"),
+      component: () => import("../views/LoginView.vue"),
     },
     {
       path: "/register",

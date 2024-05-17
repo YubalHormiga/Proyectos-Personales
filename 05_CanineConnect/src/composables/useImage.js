@@ -14,7 +14,7 @@ export default function useImage() {
     // console.log(e.target.files[0]);
     const file = e.target.files[0];
     const filename = uid() + ".jpg";
-    const sRef = storageRef(storage, "/products/" + filename);
+    const sRef = storageRef(storage, "/items/" + filename);
 
     //Sube el archivo
 

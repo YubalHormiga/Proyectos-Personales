@@ -38,11 +38,10 @@ const navItems = [
 }
 .nav-item {
   text-align: center;
-  padding: 0.5rem 3rem;
 }
 @media (min-width: 640px) {
   .nav-item {
-    padding: 0.5rem;
+    display: flex
   }
 }
 .nav-link {
