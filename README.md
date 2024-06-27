@@ -2,7 +2,7 @@
 
 ¡Bienvenido(a) a mi portafolio de proyectos personales de desarrollo web! 
 
-Aquí encontrarás una colección de proyectos en los que he estado trabajando desde Junio de 2023. 
+Aquí encontrarás una colección de proyectos en los que he estado trabajando.
 
 A medida que continúo desarrollando mis habilidades como Desarrollador Web, iré añadiendo nuevos proyectos a esta carpeta.
 
