@@ -13,8 +13,7 @@ Bienvenido a nuestro proyecto en construcción. Nos apasionan los perros y estam
 
 ¡Ayúdanos a difundir el amor por los perros y a construir una comunidad solidaria!
 
-This template should help get you started developing with Vue 3 in Vite.
-
+#ENLACE [APLICACION](https://canine-connect.vercel.app/)
 
 
 ## Customize configuration
