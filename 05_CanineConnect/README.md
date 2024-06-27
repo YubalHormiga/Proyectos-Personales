@@ -13,7 +13,7 @@ Bienvenido a nuestro proyecto en construcción. Nos apasionan los perros y estam
 
 ¡Ayúdanos a difundir el amor por los perros y a construir una comunidad solidaria!
 
-#ENLACE [APLICACION](https://canine-connect.vercel.app/)
+# ENLACE [APLICACION](https://canine-connect.vercel.app/)
 
 
 ## Customize configuration
