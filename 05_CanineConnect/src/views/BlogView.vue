@@ -1,12 +1,12 @@
 <script setup>
+import UnderConstructionPage from '@/components/UnderConstructionPage.vue';
+
 
 </script>
 
 <template>
-<h5>BlogView</h5>
+    <UnderConstructionPage/>
 </template>
 <style scoped>
 
 </style>
-
-

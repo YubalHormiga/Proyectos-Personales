@@ -1,9 +1,10 @@
 <script setup>
+import UnderConstructionPage from '@/components/UnderConstructionPage.vue';
 
 </script>
 
 <template>
-<h1>StewardshipView.vue</h1>
+<UnderConstructionPage/>
 </template>
 <style scoped>
 

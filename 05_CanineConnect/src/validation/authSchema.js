@@ -1,3 +1,4 @@
+// authSchema 
 export const authSchema = {
   // Validación de correo electrónico
   email(value) {

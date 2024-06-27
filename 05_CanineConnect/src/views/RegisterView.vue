@@ -1,5 +1,4 @@
 <!-- RegisterView.vue -->
-
 <script setup>
 import { ref, inject } from "vue";
 import { useAuthStore } from "@/stores/authStore";
@@ -8,31 +7,38 @@ import { authSchema } from "../validation/authSchema.js";
 const authStore = useAuthStore();
 const { register } = authStore;
 
-const email = ref("correo@correo.com");
-const password = ref("123123123");
+const email = ref("");
+const password = ref("");
+const firstName = ref("");
+const lastName = ref("");
 
 const error = ref({});
 
-const hadleSubmit = async () => {
-  //Resteamos errores
+const handleSubmit = async () => {
+  // Resteamos errores
   error.value = {};
-  //Verificamos reglas de validació
+  // Verificamos reglas de validación
   const emailError = authSchema.email(email.value);
   const passwordError = authSchema.password(password.value);
   // Si hay errores, establece los mensajes de error
   if (!emailError) {
-    email.value.email = emailError;
+    error.value.email = emailError;
   }
 
   if (!passwordError) {
-    password.value.password = passwordError;
+    error.value.password = passwordError;
   }
 
   if (Object.keys(error.value).length > 0) {
     return;
   }
   // Si no hay errores, procede con el registro
-  await register(email.value, password.value);
+  const displayName = `${firstName.value} ${lastName.value}`;
+  await register(
+    email.value,
+    password.value,
+    displayName
+  );
 };
 </script>
 
@@ -51,7 +57,15 @@ const hadleSubmit = async () => {
       ¡Gracias por unirte a nuestra manada! El equipo de CanineConnect
     </p>
     <div class="login-form">
-      <form @submit.prevent="hadleSubmit">
+      <form @submit.prevent="handleSubmit">
+        <div class="form-group">
+          <label for="firstName">Nombre:</label>
+          <input type="text" v-model.trim="firstName" required />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Apellidos:</label>
+          <input type="text" v-model.trim="lastName" required />
+        </div>
         <div class="form-group">
           <label for="email">Correo electrónico:</label>
           <input type="email" v-model.trim="email" required />
@@ -70,11 +84,12 @@ const hadleSubmit = async () => {
     </div>
   </div>
 </template>
+
 <style scoped>
 .container {
   padding: 0 1rem;
 }
-@media (min-width: 640px) {
+@media (min-width: 767px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;
@@ -102,7 +117,8 @@ label {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   width: 100%;
   padding: 1rem;
   font-size: 1.5rem;
@@ -129,5 +145,9 @@ button:hover {
   text-align: center;
   margin-top: 3rem;
   color: #007bff;
+}
+.linkBack:hover {
+  text-align: center;
+  text-decoration: underline;
 }
 </style>

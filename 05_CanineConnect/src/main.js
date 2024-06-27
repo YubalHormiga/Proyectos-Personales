@@ -11,8 +11,8 @@ import "@formkit/themes/genesis";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 const $toast = useToast({
-  duration: 3000,
-  position: "top-right",
+  duration: 1000,
+  position: "top",
 });
 
 import App from "./App.vue";

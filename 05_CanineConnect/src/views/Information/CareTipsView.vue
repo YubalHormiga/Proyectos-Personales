@@ -1,5 +1,6 @@
+<!-- CareTipsView OK -->
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink } from "vue-router"; // Importamos RouterLink para la navegación
 </script>
 
 <template>
@@ -9,62 +10,55 @@ import { RouterLink } from "vue-router";
       <h3 class="subtitle">Consejos para tener un perro feliz y saludable</h3>
     </div>
     <section class="section">
-      ¡Hola! CanineConnect es un espacio dedicado a la conexión entre personas y
-      perros. En esta sección, queremos ayudarte a tener una relación sana y
-      feliz con tu mejor amigo peludo.
+      ¡Hola! CanineConnect es un espacio dedicado a la conexión entre personas y perros. En esta sección, queremos ayudarte a tener una relación sana y feliz con tu mejor amigo peludo.
     </section>
     <h3 class="subtitle">Sabías que...</h3>
     <section class="section">
-      Cada año, miles de perros son abandonados en España. La falta de
-      información sobre el cuidado adecuado es una de las principales causas de
-      abandono. Un perro bien cuidado puede vivir una vida larga y saludable. En
-      CanineConnect, , queremos ayudarte a tener una relación sana y feliz con
-      tu mejor amigo peludo. Descubre cómo elegir la raza adecuada para tu
-      estilo de vida
-      <router-link class="nav-link" :to="{ name: 'breeds' }"
-        >Razas de perros</router-link
-      >
+      Cada año, miles de perros son abandonados en España. La falta de información sobre el cuidado adecuado es una de las principales causas de abandono. Un perro bien cuidado puede vivir una vida larga y saludable. En CanineConnect, queremos ayudarte a tener una relación sana y feliz con tu mejor amigo peludo. Descubre cómo elegir la raza adecuada para tu estilo de vida
+      <router-link class="nav-link" :to="{ name: 'breeds' }">Razas de perros</router-link>
       y aprende sobre la importancia de la tenencia responsable
-      <router-link class="nav-link" :to="{ name: 'stewardship' }">
-        Tenencia responsable</router-link
-      >.
+      <router-link class="nav-link" :to="{ name: 'stewardship' }">Tenencia responsable</router-link>.
     </section>
   </div>
 </template>
 
 <style scoped>
-
+/* Contenedor principal */
 .container {
   padding: 0 1rem;
   text-align: justify;
-
 }
-@media (min-width: 640px) {
+
+/* Estilos responsivos para el contenedor principal */
+@media (min-width: 767px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;
   }
 }
+
+/* Estilos para el contenido */
 .content {
   margin-bottom: 1rem;
 }
+
+/* Estilos para el título */
 .title {
   color: #333;
 }
+
+/* Estilos para el subtítulo */
 .subtitle {
   color: #666;
   font-style: italic;
 }
+
+/* Estilos para las secciones */
 .section {
   margin-bottom: 1.5rem;
 }
-@media (min-width: 640px) {
-  .container {
-    max-width: 120rem;
-    margin: 0 auto;
-  }
-}
 
+/* Estilos para los enlaces de navegación */
 .nav-link {
   text-decoration: none;
   text-align: center;
@@ -73,4 +67,3 @@ import { RouterLink } from "vue-router";
   font-weight: 700;
 }
 </style>
-RouterLink,

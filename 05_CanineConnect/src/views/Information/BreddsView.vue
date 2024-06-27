@@ -1,83 +1,165 @@
+<!-- BreddsView OK -->
 <script setup>
-import { onMounted, ref } from "vue";
-import { fetchData } from "@/api/DogsAPI.js";
-import { UseDogsStore } from "@/stores/dogStore";
+import { onMounted } from "vue";
+import { useDogBreedsStore } from "@/stores/dogBreedsStore";
 
-const dogs = UseDogsStore();
+// Inicializamos el store de razas de perros
+const dogs = useDogBreedsStore();
 
+// Usamos el lifecycle hook onMounted para obtener los datos de las razas de perros cuando el componente se monta
 onMounted(async () => {
-  dogs.dogsData.value = await fetchData();
-  console.log(fetchData());
+  await dogs.fetchDogBreedsData();
 });
 </script>
 
 <template>
-  <div
-    class="card-container"
-    v-for="dog in dogs"
-    :key="dog.id"
-  >
-    <div class="card">
-      <div class="card-face front">
-        {{ dog.name }}
-      </div>
-      <div class="card-face back">
-        <p>Información adicional</p>
-        <a href="#">Más información</a>
-        <button onclick="addToFavorites()">Agregar a favoritos</button>
+  <!-- Contenedor principal para las tarjetas de perros -->
+  <div class="container">
+    <!-- Recorremos los datos de las razas de perros y creamos una tarjeta para cada una -->
+    <div class="card-container" v-for="dog in dogs.dogBreedsData" :key="dog.id">
+      
+      <div class="card">
+        <!-- Contenedor para la imagen y el ícono -->
+        <div class="image-container">
+          <img :src="dog.image.url" :alt="dog.name" class="dog-image">
+          <div class="icon-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              class="icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59"
+              />
+            </svg>
+            <!-- <div class="icon-text">Más información</div> -->
+          </div>
+        </div>
+
+        <!-- Información del perro -->
+        <div class="info">
+          <h2>{{ dog.name }}</h2>
+          <p><strong>Origen:</strong> {{ dog.origin }}</p>
+          <p><strong>Destinado a:</strong> {{ dog.bred_for }}</p>
+          <p><strong>Temperamento:</strong> {{ dog.temperament }}</p>
+          <p><strong>Altura:</strong> {{ dog.height.metric }} cm</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
+/* Estilos para el contenedor principal */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Estilos para el contenedor de cada tarjeta */
 .card-container {
   width: 300px;
   height: 400px;
   perspective: 1000px;
-  margin: 50px auto;
+  margin: 3rem auto;
 }
 
+/* Estilos para la tarjeta */
 .card {
   width: 100%;
   height: 100%;
   position: relative;
-  transform-style: preserve-3d;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   transition: transform 0.5s;
-  background-image: url("../../../public/images/dogs.jpg");
 }
 
-.card:hover {
-  transform: rotateY(180deg);
-}
-
-.card-face {
+/* Estilos para el contenedor de la imagen y el ícono */
+.image-container {
+  position: relative;
   width: 100%;
   height: 100%;
+}
+
+/* Estilos para el contenedor del ícono y el texto */
+.icon-container {
   position: absolute;
-  backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.front {
-  background: url("tu-imagen.jpg") center/cover;
-}
-
-.back {
-  background-color: #f0f0f0;
-  transform: rotateY(180deg);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+  background: rgba(0, 0, 0, 0.3); /* Fondo semitransparente */
+  padding: 5px;
+  border-radius: 50%;
+  opacity: 1;
+  transition: opacity 0.5s;
+  z-index: 1;
 }
 
-.back a {
-  text-decoration: none;
-  color: blue;
-  font-weight: bold;
+/* Estilos para el ícono */
+.icon {
+  color: white;
+  width: 38px; /* Ajusta el tamaño según sea necesario */
+  height: 38px; /* Ajusta el tamaño según sea necesario */
+}
+
+/* Estilos para el texto debajo del ícono */
+.icon-text {
+  color: white;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Estilos para la imagen del perro */
+.dog-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: height 0.5s;
+}
+
+/* Estilos para la información del perro */
+.info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
+  background: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 2;
+}
+
+/* Estilos para el hover de la tarjeta */
+.card:hover .dog-image {
+  height: 40%;
+}
+
+.card:hover .info {
+  opacity: 1;
+}
+
+.card:hover .icon-container {
+  opacity: 0;
+}
+
+/* Estilos para los encabezados en la información del perro */
+.info h2 {
+  margin: 10px 0;
+}
+
+/* Estilos para los párrafos en la información del perro */
+.info p {
+  margin: 5px 0;
 }
 </style>

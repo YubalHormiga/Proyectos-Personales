@@ -1,45 +1,54 @@
+// useImage
+
 import { ref, computed } from "vue";
-import { uid } from "uid";
-import { useFirebaseStorage } from "vuefire";
+import { useFirebaseStorage } from "vuefire"; // Importamos vuefire para trabajar con Firebase Storage
 import {
   ref as storageRef,
   uploadBytesResumable,
   getDownloadURL,
-} from "firebase/storage";
+} from "firebase/storage"; // Importamos funciones de Firebase Storage
+import { uid } from "uid"; // Importamos uid para generar identificadores únicos
 
-export default function useImage() {
-  const url = ref("");
-  const storage = useFirebaseStorage();
+const spinner = ref(false); // Definimos una referencia reactiva para el spinner
+
+export default function useImage(directory) {
+  const url = ref(""); // Definimos una referencia reactiva para la URL de la imagen
+  const storage = useFirebaseStorage(); // Obtenemos una referencia a Firebase Storage
+
   const onFileChange = (e) => {
-    // console.log(e.target.files[0]);
-    const file = e.target.files[0];
-    const filename = uid() + ".jpg";
-    const sRef = storageRef(storage, "/items/" + filename);
+    const file = e.target.files[0]; // Obtenemos el primer archivo seleccionado
+    const filename = uid() + ".jpg"; // Generamos un nombre de archivo único
+    const sRef = storageRef(storage, directory + filename); // Creamos una referencia de almacenamiento en Firebase Storage
 
-    //Sube el archivo
+    // Subir el archivo
+    const uploadTask = uploadBytesResumable(sRef, file); // Iniciamos la subida del archivo
+    spinner.value = true; // Activamos el spinner durante la subida
 
-    const uploadTask = uploadBytesResumable(sRef, file);
     uploadTask.on(
       "state_changed",
-      () => {},
-      (error) => console.log(error),
+      () => {}, // Podemos agregar un manejador para el progreso si lo deseamos
+      (error) => {
+        console.log(error); // Registramos el error en la consola
+        spinner.value = false; // Apagamos el spinner en caso de error
+      },
       () => {
-        //La imagen ya see subió
-        // console.log(uploadTask.snapshot.ref);
+        // La imagen ya se subió
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          //   console.log(downloadURL);  Para imprimir la dirección de donde está l a imagen
-          url.value = downloadURL;
+          url.value = downloadURL; // Asignamos la URL de descarga a la referencia reactiva
+          spinner.value = false; // Apagamos el spinner cuando la subida finaliza
         });
       }
     );
   };
 
   const isImageUploaded = computed(() => {
-    return url.value ? url.value : null;
+    return url.value ? url.value : null; // Computed property que indica si la imagen se ha subido
   });
+
   return {
-    url,
-    onFileChange,
-    isImageUploaded
+    url, // URL de la imagen subida
+    onFileChange, // Función para manejar el cambio de archivo
+    isImageUploaded, // Computed property que indica si la imagen se ha subido
+    spinner, // Estado del spinner
   };
 }

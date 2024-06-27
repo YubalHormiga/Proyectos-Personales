@@ -1,9 +1,11 @@
 <script setup>
+import UnderConstructionPage from '@/components/UnderConstructionPage.vue';
+
 
 </script>
 
 <template>
-Recursos
+    <UnderConstructionPage/>
 </template>
 <style scoped>
 

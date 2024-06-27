@@ -47,7 +47,7 @@ const submitForm = async () => {
 .container {
   padding: 0 1rem;
 }
-@media (min-width: 640px) {
+@media (min-width: 767px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;
@@ -79,7 +79,6 @@ input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 1rem;
-  font-size: 1.5rem;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
@@ -90,7 +89,6 @@ p {
   background-color: #007bff;
   color: white;
   padding: 1rem;
-  font-size: 1.5rem;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -103,11 +101,9 @@ p {
 .register-button {
   display: block;
   text-align: center;
-  /* text-decoration: none; */
-  background-color: white;
+  text-decoration: none;
   color: #007bff;
   padding: 1rem;
-  font-size: 1.5rem;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -116,9 +112,8 @@ p {
 .register-button:hover {
   display: block;
   text-align: center;
-  text-decoration: none;
-  background-color: #007bff;
-  color: white;
+  text-decoration: underline;
+  color: #007bff;
   cursor: pointer;
   width: 100%;
 }

@@ -1,7 +1,11 @@
 import { inject } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
+import { useFirebaseAuth } from "vuefire";
+import { onAuthStateChanged } from "firebase/auth";
 import HomeView from "../views/Home/HomeView.vue";
-import { useAuthStore } from "../stores/authStore.js";
+import { useAuthStore } from "@/stores/authStore";
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +15,13 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/admin",
+      name: "admin",
+
+      component: () => import("../views/Admin/AdminView.vue"),
+      meta: { requiresAdmin: true }, // Añadido
     },
     {
       path: "/informacion",
@@ -57,33 +68,44 @@ const router = createRouter({
     {
       path: "/objetos",
       name: "lost-items",
-      component: () => import("../views/items/LostItemsView.vue"),
+      component: () => import("../views/Items/LostAndFoundView.vue"),
     },
     {
       path: "/objetos/encontrados",
       name: "found-items",
-      component: () => import("../views/items/FoundItems.vue"),
+      component: () => import("../views/Items/ReportFoundItemView.vue"),
     },
     {
       path: "/objetos/editar/:id",
-      name: "editItemFound",
-      component: () => import("../views/items/EditItemView.vue"),
+      name: "edit-item-found",
+      component: () => import("../views/Items/EditFoundItemView.vue"),
     },
     {
-      path: "/regalo",
-      name: "gift",
+      path: "/donate",
+      name: "donate",
       component: () => import("../views/DonationView.vue"),
     },
     {
-      path: "/perros-perdidos",
+      path: "/sebusca",
       name: "lost-dogs",
-      component: () => import("../views/LostDogsView.vue"),
+      component: () => import("../views/LostDogs/LostAndFoundDogsView.vue"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/sebusca/encontrados",
+      name: "found-dogs",
+      component: () => import("../views/LostDogs/ReportDogFoundView.vue"),
+    },
+    {
+      path: "/sebusca/editar/:id",
+      name: "edit-lostDog-found",
+      component: () => import("../views/LostDogs/EditFoundDogView.vue"),
     },
     {
       path: "/chat",
       name: "chat",
-      component: () => import("../views/ChatView.vue"),
-      // meta: { requireAuth: true },
+      component: () => import("../views/Chat/Chat.vue"),
+      meta: { requiresAuth: true },
     },
     {
       path: "/login",
@@ -96,30 +118,59 @@ const router = createRouter({
       component: () => import("../views/RegisterView.vue"),
     },
     {
+      path: "/privacy-policy",
+      name: "privacy-policy",
+      component: () => import("../views/PrivacyPolicyView.vue"),
+    },
+    {
       path: "/:catchAll(.*)*",
       component: () => import("../views/ErrorNotFound.vue"),
     },
+
   ],
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const toast = inject("toast");
-  try {
-    if (to.meta.requireAuth && !useAuthStore.isLoggedIn) {
-      next({ name: "login" });
+  const authStore = useAuthStore();
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
+
+  if (requiresAuth || requiresAdmin) {
+    try {
+      await athenticateUser();
+      if (requiresAdmin && !authStore.isAdmin) {
+        toast.open({
+          message: "Acceso denegado: solo para administradores.",
+          type: "error",
+        });
+        next({ name: "home" }); // Redirigir a home si no es administrador
+      } else {
+        next();
+      }
+    } catch (error) {
       toast.open({
-        message: `Solo para usuarios registrados`,
-        type: "info",
+        message: "Solo para usuarios registrados.",
+        type: "error",
       });
-    } else {
-      next();
+      next({ name: "login" }); // Redirigir a login si no está autenticado
     }
-  } catch (error) {
-    toast.open({
-      message: `Se ha producido un error ${error}`,
-      type: "error",
-    });
+  } else {
+    next();
   }
 });
 
+function athenticateUser() {
+  const auth = useFirebaseAuth();
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      if (user) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+}
 export default router;
