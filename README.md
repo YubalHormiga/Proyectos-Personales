@@ -8,8 +8,6 @@ A medida que continúo desarrollando mis habilidades como Desarrollador Web, ir�
 
 En este portafolio, podrás explorar una variedad de proyectos de desarrollo web realizados por mí. 
 
-Cada proyecto está diseñado para demostrar mi pasión y capacidad en la creación.
-
 Dentro de los proyectos incluidos en esta carpeta, encontrarás aplicaciones web responsivas, sitios interactivos y otros tipos de proyectos que destacan mis habilidades técnicas y creativas.
 
 Cada proyecto viene acompañado de una descripción detallada, capturas de pantalla y enlace a la aplicación. 
