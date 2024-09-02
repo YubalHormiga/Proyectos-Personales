@@ -13,6 +13,16 @@ Bienvenido a nuestro proyecto en construcción. Nos apasionan los perros y estam
 
 ¡Ayúdanos a difundir el amor por los perros y a construir una comunidad solidaria!
 
+<<<<<<< HEAD
+=======
+# ENLACE [APLICACION](https://canine-connect.vercel.app/)
+
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+>>>>>>> d1dc8685503f02f4f0a430cc2956733c7a97ebea
 ## Project Setup
 
 ```sh
