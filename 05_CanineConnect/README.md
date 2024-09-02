@@ -5,13 +5,6 @@
 ## 🚧 En Construcción
 
 Esta aplicación está en proceso de desarrollo. A continuación, te ofrecemos una breve descripción del propósito de la aplicación y cómo puedes obtener una vista previa si estás interesado.
-# CanineConnect
-
-**CanineConnect** es una aplicación en desarrollo diseñada para gestionar y mostrar información sobre perros. Actualmente, estamos trabajando en su construcción, y queremos mantenerte informado sobre el progreso.
-
-## 🚧 En Construcción
-
-Esta aplicación está en proceso de desarrollo. A continuación, te ofrecemos una breve descripción del propósito de la aplicación y cómo puedes obtener una vista previa si estás interesado.
 
 ## Descripción
 
@@ -37,7 +30,7 @@ Actualmente, hay secciones y funcionalidades específicas que están disponibles
 
 Para solicitar acceso a las funcionalidades administrativas o para cualquier consulta sobre el estado de la aplicación, por favor contáctanos a través de:
 
-- **Correo Electrónico**: [yubalhh@gmail.com](mailto:tu_email@example.com)
+- **Correo Electrónico**: [yuballhh@gmail.com](mailto:tu_email@example.com)
 
 Te proporcionaremos acceso a una vista previa completa y responderemos cualquier pregunta que puedas tener.
 
@@ -46,6 +39,8 @@ Te proporcionaremos acceso a una vista previa completa y responderemos cualquier
 Para más detalles sobre el proyecto, puedes seguir su desarrollo en este repositorio. Estaremos actualizando la documentación y las características a medida que avancemos en el desarrollo.
 
 Gracias por tu interés en CanineConnect. ¡Estamos emocionados de compartir nuestro progreso contigo!
+
+
 
 
 
