@@ -1,23 +1,28 @@
 /* main.css */
 
+
 /* Variables */
 :root {
-  --primary-100: #8B5D33;
-  --primary-200: #be8a5e;
-  --primary-300: #ffedbc;
-  --accent-100: #BFBFBF;
-  --accent-200: #616161;
-  --text-100: #333333;
-  --text-200: #5c5c5c;
-  --bg-100: #E5E5E5;
-  --bg-200: #dbdbdb;
-  --bg-300: #b3b3b3;
-  
+  /* Colores */
+  --text-100: #575757;
+  --text-200: #2E2E2E;
+  --text-100-dm: #FFFFFF;
+  --text-200-dm: #E0E0E0;
+  --bg-0: #ffffff;
+  --bg-0-dm: #284431;
+  --bg-100: #7F9E87;
+  --bg-100-dm: #3C5A49;
+  --bg-200: #64826c;
+  --bg-200-dm: #2B4035;
+  --bg-300: #284431;
+  --bg-300-dm: #18281F;
+  --accent-100: #F2C057;
+  --acent-100-dm: #D4AC08;
+  --accent-200: #886300;
+  --acent-200-dm: #B28A06;
 
-  /* OTROS */
+  /* Otros */
   --primary-font: 'Roboto', sans-serif;
-  /* --primary-color: #000;
-  --background-color: #fff; */
   --max-width: 120rem;
 }
 
@@ -25,7 +30,6 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
-  /* 1rem = 10px */
 }
 
 *,
@@ -42,57 +46,89 @@ html {
 body {
   min-height: 100vh;
   font-family: var(--primary-font);
-  background-color: var(--background-color);
-  font-size: 1.6rem; /* 16px */
-  font-optical-sizing: auto;
+  background-color: var(--bg-0);
+  font-size: 1.6rem;
   line-height: 1.6;
-  color: var(--primary-color);
+  color: var(--text-100);
+  hyphens: auto;
+  text-align: justify;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--primary-font);
-  margin: 0 0 2rem 0;
   font-weight: 700;
 }
 
-h1 { font-size: 2.4rem; } /* 24px */
-h2 { font-size: 2rem; } /* 20px */
-h3 { font-size: 1.8rem; } /* 18px */
-h4 { font-size: 1.6rem; } /* 16px */
-h5 { font-size: 1.4rem; } /* 14px */
-h6 { font-size: 1.2rem; } /* 12px */
+h1 {
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--accent-200);
+}
+
+h3 {
+  font-size: 1.8rem;
+  color: var(--text-100);
+}
+
+h4 {
+  font-size: 1.6rem;
+}
+
+h5 {
+  font-size: 1.4rem;
+}
+
+h6 {
+  font-size: 1.2rem;
+}
 
 p {
-  font-size: 1.6rem; /* 16px */
+  font-size: 1.6rem;
   line-height: 1.5;
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--text-100);
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
   text-decoration: underline;
+
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
 button {
+  border: none;
+  background: none;
   cursor: pointer;
 }
 
-img, video, svg {
+img,
+video,
+svg {
   height: auto;
   max-width: 100%;
-  /* width: 100%; */
   display: block;
 }
 
@@ -102,5 +138,25 @@ img, video, svg {
   max-width: var(--max-width);
 }
 
+.darkMode {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+.darkMode h2 {
+  color: var(--acent-100-dm)
+}
+
+.darkMode h3 {
+  color: var(--acent-200-dm)
+}
+.darkMode a{
+  color: var(--text-100-dm);
+}
 
 
+.darkMode .container {}
+
+.darkMode .card {}
+
+.darkMode .modal {}

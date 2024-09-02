@@ -10,7 +10,7 @@ import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 
 /* Importaciones de componentes locales */
 import Link from "@/components/Link.vue";
-import Spinner from "@/components/Spinner.vue";
+import SpinnerDog from "@/components/SpinnerDog.vue";
 
 /* Importaciones de stores */
 import { useItemsStore } from "@/stores/itemsStore.js";
@@ -145,7 +145,7 @@ const handleLimitCharacters = (field, maxLength) => {
         />
         <!-- Sección de imagen y spinner -->
         <div v-if="spinner" class="spinner">
-          <Spinner />
+          <SpinnerDog />
         </div>
         <div v-else-if="isImageUploaded" class="image-container">
           <p class="image">Imagen Nueva:</p>
@@ -293,14 +293,14 @@ const handleLimitCharacters = (field, maxLength) => {
 .geolocation-button {
   background-color: #fff;
   display: block;
-  border: none;
-  cursor: pointer;
-  color: #3367d6;
+  font-weight: 600;
+  color: var(--text-100);
+  text-decoration: underline;
 }
 .geolocation-button:hover {
   display: block;
-  cursor: pointer;
-  font-weight: 700;
+  font-weight: 900;
+  color: var(--text-200);
 }
 .pin {
   display: block;

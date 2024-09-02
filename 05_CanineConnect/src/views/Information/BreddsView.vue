@@ -44,10 +44,10 @@ onMounted(async () => {
         <!-- Información del perro -->
         <div class="info">
           <h2>{{ dog.name }}</h2>
-          <p><strong>Origen:</strong> {{ dog.origin }}</p>
-          <p><strong>Destinado a:</strong> {{ dog.bred_for }}</p>
-          <p><strong>Temperamento:</strong> {{ dog.temperament }}</p>
-          <p><strong>Altura:</strong> {{ dog.height.metric }} cm</p>
+          <p><span>Origen:</span> {{ dog.origin }}</p>
+          <p><span>Destinado a:</span> {{ dog.bred_for }}</p>
+          <p><span>Temperamento:</span> {{ dog.temperament }}</p>
+          <p><span>Altura:</span> {{ dog.height.metric }} cm</p>
         </div>
       </div>
     </div>
@@ -59,12 +59,13 @@ onMounted(async () => {
 .container {
   display: flex;
   flex-wrap: wrap;
+  
 }
 
 /* Estilos para el contenedor de cada tarjeta */
 .card-container {
-  width: 300px;
-  height: 400px;
+  width: 25rem;
+  height: 38rem;
   perspective: 1000px;
   margin: 3rem auto;
 }
@@ -75,9 +76,9 @@ onMounted(async () => {
   height: 100%;
   position: relative;
   overflow: hidden;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: transform 0.5s;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
 }
 
 /* Estilos para el contenedor de la imagen y el ícono */
@@ -138,11 +139,18 @@ onMounted(async () => {
   opacity: 0;
   transition: opacity 0.5s;
   z-index: 2;
+
 }
 
 /* Estilos para el hover de la tarjeta */
+.card:hover{
+  transform: scale(1.05);
+  transition: transform 500ms ease-in;
+}
+
 .card:hover .dog-image {
-  height: 40%;
+  height: 50%;
+
 }
 
 .card:hover .info {
@@ -155,11 +163,14 @@ onMounted(async () => {
 
 /* Estilos para los encabezados en la información del perro */
 .info h2 {
-  margin: 10px 0;
+  margin: 0;
 }
 
 /* Estilos para los párrafos en la información del perro */
-.info p {
+.info p span {
   margin: 5px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-200);
 }
 </style>

@@ -5,8 +5,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import HomeView from "../views/Home/HomeView.vue";
 import { useAuthStore } from "@/stores/authStore";
 
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // linkActiveClass: "active",
@@ -52,7 +50,27 @@ const router = createRouter({
     {
       path: "/adopcion",
       name: "adoption",
-      component: () => import("../views/AdoptionView.vue"),
+      component: () => import("../views/Adoption/AdoptionView.vue"),
+    },
+    {
+      path: "/adopcion/agregar",
+      name: "add-adoption",
+      component: () => import("../views/Adoption/ReportAdoptionView.vue"),
+    },
+    {
+      path: "/adopcion/listado",
+      name: "adoption-list",
+      component: () => import("../views/Adoption/ListDogsAdoption.vue"),
+    },
+    {
+      path: "/adopcion/editar/:id",
+      name: "edit-adoption",
+      component: () => import("../views/Adoption/EditAdoptionDogVIew.vue"),
+    },
+    {
+      path: "/adopcion/informacion/:id",
+      name: "dog-information",
+      component: () => import("../views/Adoption/DogInformationView.vue"),
     },
 
     {
@@ -61,9 +79,16 @@ const router = createRouter({
       component: () => import("../views/ResourcesView.vue"),
     },
     {
-      path: "/blog",
-      name: "blog",
-      component: () => import("../views/BlogView.vue"),
+      path: "/historias-inspiradoras",
+      name: "inspiring-stories",
+      component: () =>
+        import("../views/InspiringStories/InspiringStoriesView.vue"),
+    },
+    {
+      path: "/historias-inspiradoras/agregar",
+      name: "add-inspiring-story",
+      component: () =>
+        import("../views/InspiringStories/ReportInspireStoryView.vue"),
     },
     {
       path: "/objetos",
@@ -81,7 +106,7 @@ const router = createRouter({
       component: () => import("../views/Items/EditFoundItemView.vue"),
     },
     {
-      path: "/donate",
+      path: "/donar",
       name: "donate",
       component: () => import("../views/DonationView.vue"),
     },
@@ -126,7 +151,6 @@ const router = createRouter({
       path: "/:catchAll(.*)*",
       component: () => import("../views/ErrorNotFound.vue"),
     },
-
   ],
 });
 

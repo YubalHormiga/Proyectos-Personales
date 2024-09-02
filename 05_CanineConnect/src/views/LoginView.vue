@@ -5,8 +5,8 @@ import { useAuthStore } from "@/stores/authStore";
 
 const authStore = useAuthStore();
 const { login } = authStore;
-const email = ref("correo@correo.com");
-const password = ref("123123123");
+const email = ref("");
+const password = ref("");
 
 
 const submitForm = async () => {
@@ -47,7 +47,7 @@ const submitForm = async () => {
 .container {
   padding: 0 1rem;
 }
-@media (min-width: 767px) {
+@media (min-width: 640px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;

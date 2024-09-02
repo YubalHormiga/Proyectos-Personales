@@ -24,7 +24,7 @@
   padding: 2rem;
 }
 .name {
-  font-size: clamp(4.5rem, 4vw + 1.5rem, 13.25rem);
+  font-size: clamp(4rem, 4vw + 1.5rem, 13.25rem);
   margin: 3rem 0 0 0;
 }
 .site-name {

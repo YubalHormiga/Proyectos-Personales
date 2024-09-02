@@ -1,22 +1,19 @@
 <!-- AboutSectionView OK -->
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 
-// Estado para mostrar o esconder contenido adicional
 const showContent = ref(false);
 
-// Lista de valores
 const valueList = [
-  "Compasión",
-  "Responsabilidad",
-  "Transparencia",
-  "Colaboración",
+  'Compasión',
+  'Responsabilidad',
+  'Transparencia',
+  'Colaboración',
 ];
 </script>
 
 <template>
   <section class="about-section">
-    <!-- Contenido inicial -->
     <article class="initial-content">
       <p class="mission-paragraph">
         Desde mi infancia, he compartido mi vida con una variedad de animales
@@ -29,7 +26,6 @@ const valueList = [
       </p>
     </article>
     
-    <!-- Contenido adicional -->
     <article v-if="showContent">
       <p class="mission-paragraph">
         Mi padre, quien también se despidió de este mundo durante la pandemia,
@@ -68,7 +64,6 @@ const valueList = [
       </p>
     </article>
 
-    <!-- Botones para mostrar/ocultar contenido -->
     <button
       @click="showContent = !showContent"
       v-if="!showContent"
@@ -88,7 +83,6 @@ const valueList = [
       Cerrar
     </button>
 
-    <!-- Lista de valores -->
     <p><span class="values-heading">Valores:</span></p>
     <ul class="values-list">
       <li v-for="(value, index) in valueList" :key="index" class="value-item">
@@ -99,7 +93,6 @@ const valueList = [
 </template>
 
 <style scoped>
-/* Estilos generales para la sección */
 .about-section {
   text-align: justify;
   padding: 1rem;
@@ -107,34 +100,32 @@ const valueList = [
   font-family: Arial, sans-serif;
 }
 
-/* Estilos para los botones */
 .read-more-button,
 .close-button {
   border: none;
   border-radius: 0.5rem;
-  background-color: rgba(201, 172, 172, 0.7);
+  background-color: var(--accent-200);
+  color: white;
   padding: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .read-more-button:hover,
 .close-button:hover {
-  background-color: rgba(201, 172, 172, 1);
+  background-color: var(--accent-100);
 }
 
-/* Estilos para los párrafos */
 p {
-  font-weight: 300; /* Uso del peso 300 para párrafos */
+  font-weight: 300;
   margin-bottom: 1rem;
 }
 
-/* Estilos para los encabezados de valores */
 .values-heading {
   font-weight: bold;
 }
 
-/* Estilos para la lista de valores */
 .values-list {
   list-style-type: disc;
   padding-left: 1rem;
@@ -144,3 +135,5 @@ p {
   margin-bottom: 0.5rem;
 }
 </style>
+
+

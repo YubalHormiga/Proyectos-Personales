@@ -24,12 +24,12 @@ const props = defineProps({
 }
 
 .css-button-shadow--sky {
-  min-width: 130px;
+  min-width: 90px;
   height: 40px;
   text-decoration: none;
   color: #fff;
   padding: 5px 10px;
-  font-weight: bold;
+  font-weight: normal;
   cursor: pointer;
   transition: all 0.3s ease; /* Asegúrate de que esta línea esté presente */
   position: relative;
@@ -37,12 +37,13 @@ const props = defineProps({
   outline: none;
   border-radius: 5px;
   border: none;
-  background-color: #3a86ff;
+  background-color:var(--accent-200);
   box-shadow: 0 3px 1px -2px #ccc, 0 2px 2px 0 #ccc, 0 1px 5px 0 #ccc;
+  text-align: center
 }
 
 .css-button-shadow--sky:hover {
-  background-color: #357ae8; /* Cambia el color al hacer hover */
+  background-color: var(--accent-100); /* Cambia el color al hacer hover */
   box-shadow: 0 4px 2px -2px #bbb, 0 4px 4px 0 #bbb, 0 2px 6px 0 #bbb; /* Ajusta el shadow al hacer hover */
 }
 

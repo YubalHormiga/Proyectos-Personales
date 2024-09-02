@@ -50,6 +50,21 @@ const imageLostDogsCollection = async () => {
   }
 };
 
+const getClass = (index) => {
+  if (index === currentIndex.value) {
+    return "active";
+  } else if (index === (currentIndex.value + 1) % images.value.length) {
+    return "next";
+  } else if (
+    index ===
+    (currentIndex.value - 1 + images.value.length) % images.value.length
+  ) {
+    return "previous";
+  } else {
+    return "hidden";
+  }
+};
+
 const noResults = computed(() => {
   return images.value.length === 0;
 });
@@ -65,21 +80,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Estructura del carrusel de imágenes -->
-
   <div v-if="!noResults" class="pet-carousel">
     <div
+      class="pet-description"
       @click="() => router.push({ name: 'lost-dogs' })"
+    >
+      <p class="pet-lost">Se Busca</p>
+    </div>
+    <div
       class="pet-card"
-      :class="{ active: index === currentIndex }"
+      :class="getClass(index)"
       v-for="(image, index) in images"
       :key="index"
       :style="{ backgroundImage: `url(${image})` }"
     >
       <!-- Descripción opcional de la imagen -->
-      <div class="pet-description">
-        <p class="pet-lost">Se Busca</p>
-      </div>
     </div>
   </div>
   <div v-else style="display: none">
@@ -91,28 +106,57 @@ onMounted(() => {
 /* Estilos para el carrusel de imágenes */
 .pet-carousel {
   position: relative;
-  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
   height: 30rem;
   overflow: hidden;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
-
+@media (min-width: 640px) {
+  .pet-carousel {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
 /* Estilos para cada imagen en el carrusel */
 .pet-card {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  display: none;
-  mask-image: radial-gradient(circle, white, transparent 70%);
+  position: absolute;
+  transition: transform 0.5s, opacity 0.5s;
+  transform-style: preserve-3d;
+
+  
 }
 
-/* Mostrar solo la imagen activa */
+/* Estilos para la imagen activa */
 .pet-card.active {
-  display: block;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  z-index: 2;
+
+}
+
+/* Estilos para las imágenes anteriores */
+.pet-card.previous {
+  transform: translateX(-30%) scale(0.7);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Estilos para las imágenes siguientes */
+.pet-card.next {
+  transform: translateX(30%) scale(0.7);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Estilos para imágenes ocultas */
+.pet-card.hidden {
+  display: none;
 }
 
 /* Estilos para la descripción de la imagen (opcional) */
@@ -125,15 +169,16 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .pet-lost {
   text-transform: uppercase;
-  font-size: clamp(4.2rem, 5vw + 1.5rem, 15.25rem);
+  font-size:clamp(4rem, 4vw + 1.5rem, 13.25rem);
   font-weight: 900;
   color: red;
   opacity: 0.4;
-  letter-spacing: 10px;
+  letter-spacing: 3px;
   margin: 0;
   cursor: pointer;
 }

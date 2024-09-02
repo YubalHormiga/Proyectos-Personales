@@ -17,16 +17,13 @@ const lostDogsStore = useLostDogsStore();
 <template>
   <div class="lostDog-container">
     <!-- Título de bienvenida -->
-    <h3>Bienvenido a la Sección de Mascota Perdida</h3>
+    <h2>Bienvenido a la Sección de Mascota Perdida</h2>
     <!-- Instrucciones para reportar una mascota encontrada -->
     <p>
-      Por favor, utiliza este formulario para proporcionar información sobre la
-      mascota que has encontrado. Completa todos los campos obligatorios para
-      ayudarnos a reunir al animal con su dueño. Asegúrate de incluir detalles
-      precisos y una imagen clara de la mascota.
+      Por favor, utiliza este formulario para proporcionar información sobre la mascota que has encontrado o perdido. Completa todos los campos obligatorios para ayudarnos a reunir al animal con su dueño o facilitar su búsqueda. Asegúrate de incluir detalles precisos y una imagen clara de la mascota si es posible.
     </p>
     <!-- Enlace para reportar una mascota encontrada -->
-    <div v-if="authStore.isAdmin" class="report-link-container" >
+    <div v-if="authStore.isAdmin" class="report-link-container" > <!--Modificar si queremos que no lo ean los usuarios-->
       <Link to="found-dogs" class="report-link">
         Reportar Mascota
       </Link>
@@ -49,7 +46,7 @@ const lostDogsStore = useLostDogsStore();
 
 <style scoped>
 /* Estilos para los títulos */
-h3 {
+h2, h3 {
   text-align: center;
 }
 
@@ -71,7 +68,8 @@ h3 {
   list-style: none;
   padding: 0;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap:2rem
 }
 </style>

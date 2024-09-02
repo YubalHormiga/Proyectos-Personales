@@ -3,7 +3,7 @@
     <div class="container">
       <div class="construction-icon">🚧</div>
       <div>
-        <h1>Estamos trabajando en ello</h1>
+        <h2>Estamos trabajando en ello</h2>
       </div>
 
       <div>

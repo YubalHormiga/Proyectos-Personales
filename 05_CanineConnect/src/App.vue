@@ -9,7 +9,7 @@ import MainNavigation from "./share/MainNavigation.vue";
 <template>
   <div class="wrapper">
     <div class="image">
-      <MainNavigation class="navagation" />
+      <MainNavigation class="navegation" />
       <Header />
     </div>
     <div class="router-container">
@@ -23,34 +23,35 @@ import MainNavigation from "./share/MainNavigation.vue";
 
 <style scoped>
 .image {
-  background-image: url("/images/dogs.jpg");
+  background-image: url("../src/assets/images/dogs.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 33%;
+  margin-bottom: 2rem
+}
+
+.navegation {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-.navagation{
-  position: fixed;
-  top: 0;
-  z-index: 1000;
+  overflow-x: hidden;
 }
 .router-container {
   flex: 1;
   margin-bottom: 1rem;
-  padding: 1rem
+  padding: 1rem;
 }
 
-.container {
-  text-align: justify;
-}
-@media (min-width: 640px) {
+/* @media (min-width: 640px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;
   }
-}
+} */
 </style>

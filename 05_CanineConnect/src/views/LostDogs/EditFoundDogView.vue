@@ -1,27 +1,31 @@
 <!-- EditFoundDogView ok -->
 <script setup>
 /* Importaciones de bibliotecas externas */
-import { reactive, watch } from "vue";
+import { reactive, watch, ref, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useDocument, useFirestore } from "vuefire";
 import { doc } from "firebase/firestore";
+import "leaflet/dist/leaflet.css";
+import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 
 /* Importaciones de componentes locales */
 import Link from "@/components/Link.vue";
-import Spinner from "@/components/Spinner.vue";
+import SpinnerDog from "@/components/SpinnerDog.vue";
 
 /* Importaciones de stores */
 import { useLostDogsStore } from "@/stores/lostDogsStore";
 
 /* Importaciones de composables */
 import useImage from "@/composables/useImage";
+import useLocationMap from "@/composables/useLocationMap";
 
 /* Importaciones de helpers */
-import { limitCharacters } from '@/helpers';
+import { limitCharacters } from "@/helpers";
 
-// Usamos el composable para el manejo de imágenes y extraemos las propiedades necesarias
-const { url, onFileChange, isImageUploaded, spinner } = useImage("lostDogs_images");
-
+// Usamos los composables para el manejo de imágenes y extraemos las propiedades necesarias
+const { url, onFileChange, isImageUploaded, spinner } =
+  useImage("lostDogs_images");
+const { center, zoom, pin, getUserLocation } = useLocationMap();
 // Usamos el store de perros perdidos
 const lostDogsStore = useLostDogsStore();
 
@@ -40,24 +44,37 @@ const formData = reactive({
   name: "",
   phone: "",
   email: "",
-  location: "",
+  observations: "",
   date: "",
+  location: "",
 });
 
+// Estado para verificar si los datos están listos
+const isDataReady = ref(false);
+
 // Observamos cambios en el dog y actualizamos formData cuando cambie
-watch(dog, (dog) => {
+watch(dog, async (dog) => {
   if (!dog) {
     // Si el dog no existe, redirigimos a la página de "lost-dogs"
     router.push({ name: "lost-dogs" });
   } else {
     Object.assign(formData, dog); // Actualizamos formData con los datos del dog
+    center.value = [dog.map[0], dog.map[1]];
+    isDataReady.value = true;
+    await nextTick(); // Aseguramos que Vue actualiza el DOM
   }
 });
 
 // Función para manejar el envío del formulario
 const handleSubmit = async (data) => {
   try {
-    await lostDogsStore.updateLostDog(docRef, { ...data, url }); // Actualizamos el documento en Firestore con los nuevos datos y la URL de la imagen
+    // Actualizamos el documento en Firestore con los nuevos datos y la URL de la imagen
+    const updatedData = {
+      ...data,
+      map: [center.value[0], center.value[1]],
+      url,
+    };
+    await lostDogsStore.updateLostDog(docRef, updatedData); // Actualizamos el documento en Firestore con los nuevos datos y la URL de la imagen
     router.push({ name: "lost-dogs" }); // Redirigimos a la página de "lost-dogs" después de la actualización
   } catch (error) {
     console.log(error); // Manejamos cualquier error que ocurra durante la actualización
@@ -85,12 +102,48 @@ const handleLimitCharacters = (field, maxLength) => {
     <p class="gratitude-note">
       ¡Tu ayuda es fundamental para reunificación de mascotas perdidas!
     </p>
+    <!-- Campos de Geolocalización -->
+    <div class="geolocation-container">
+      <button class="geolocation-button" @click="getUserLocation">
+        Obtener Ubicación
+      </button>
+      <p class="pin">o desplázate con el pin</p>
+    </div>
     <!-- Formulario -->
     <div class="form">
       <FormKit type="form" submit-label="Enviar" @submit="handleSubmit">
-               <!-- Sección de imagen y spinner -->
-               <div v-if="spinner" class="spinner">
-          <Spinner />
+        <!-- Campos del mapa -->
+        <div class="map-container">
+          <LMap
+            v-if="isDataReady"
+            ref="map"
+            v-model:zoom="zoom"
+            :center="center"
+            :use-global-leaflet="false"
+          >
+            <LMarker :lat-lng="center" draggable @moveend="pin" />
+            <LTileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ></LTileLayer>
+          </LMap>
+        </div>
+        <!--Sección Fecha-->
+        <FormKit
+          class="message-input"
+          type="date"
+          label="Fecha del hallazgo"
+          name="date"
+          format="DD MM YY"
+          placeholder="Fecha en que se encontró la mascota"
+          validation="required"
+          :validation-messages="{
+            required: 'La fecha es obligatoria',
+          }"
+          v-model.trim="formData.date"
+        />
+        <!-- Sección de imagen y spinner -->
+        <div v-if="spinner" class="spinner">
+          <SpinnerDog />
         </div>
         <div v-else-if="isImageUploaded" class="image-container">
           <p class="image">Imagen Nueva:</p>
@@ -113,19 +166,7 @@ const handleLimitCharacters = (field, maxLength) => {
           accept=".jpg"
           @change="onFileChange"
         />
-        <FormKit
-          class="message-input"
-          type="date"
-          label="Fecha del hallazgo"
-          name="date"
-          format="DD MM YY"
-          placeholder="Fecha en que se encontró la mascota"
-          validation="required"
-          :validation-messages="{
-            required: 'La fecha es obligatoria',
-          }"
-          v-model.trim="formData.date"
-        />
+
         <FormKit
           type="text"
           label="Nombre"
@@ -136,6 +177,18 @@ const handleLimitCharacters = (field, maxLength) => {
             required: 'El nombre es Obligatorio',
           }"
           v-model.trim="formData.name"
+        />
+        <!-- Campo para el nombre del perro -->
+        <FormKit
+          type="text"
+          label="Nombre del perro"
+          name="dogName"
+          placeholder="Nombre del perro"
+          validation="required"
+          :validation-messages="{
+            required: 'El nombre es Obligatorio',
+          }"
+          v-model.trim="formData.dogName"
         />
         <FormKit
           type="tel"
@@ -162,17 +215,17 @@ const handleLimitCharacters = (field, maxLength) => {
         <FormKit
           type="textarea"
           label="Ubicación y detalles"
-          name="location"
+          name="observations"
           placeholder="Dónde se encontró y cualquier detalle relevante"
-          :help="`${formData.location.length} / 200`"
+          :help="`${formData.observations.length} / 200`"
           validation="required | length:0,200"
           :validation-messages="{
             required: 'La ubicación es obligatoria',
             length: 'La ubicación no puede tener más de 200 caracteres.',
           }"
           validation-visibility="blur"
-          v-model="formData.location"
-          @input="handleLimitCharacters('location', 200)"
+          v-model="formData.observations"
+          @input="handleLimitCharacters('observations', 200)"
         />
       </FormKit>
     </div>
@@ -180,6 +233,34 @@ const handleLimitCharacters = (field, maxLength) => {
 </template>
 
 <style scoped>
+/* Estilos para geolocalización */
+.geolocation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+.geolocation-button {
+  background-color: #fff;
+  display: block;
+  font-weight: 600;
+  color: var(--text-100);
+  text-decoration: underline;
+}
+.geolocation-button:hover {
+  display: block;
+  font-weight: 900;
+  color: var(--text-200);
+}
+.pin {
+  display: block;
+}
+/* Contenedor Mapa */
+.map-container {
+  height: 30rem;
+  margin-bottom: 1rem;
+}
 /* Nota de agradecimiento */
 .gratitude-note {
   text-align: center;
@@ -188,14 +269,14 @@ const handleLimitCharacters = (field, maxLength) => {
 /* Estilo del formulario */
 .form {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   margin-top: 2rem;
-  align-items: center; 
-  min-height: 50vh; 
+  align-items: center;
+  min-height: 50vh;
 }
 
 .form > * {
-  max-width: 40rem; 
+  max-width: 40rem;
   width: 100%; /* Hace que el formulario ocupe todo el ancho disponible */
   margin: 0 auto;
   margin-bottom: 1rem; /* Espaciado entre elementos del formulario */
@@ -222,4 +303,3 @@ const handleLimitCharacters = (field, maxLength) => {
   max-height: 20rem; /* Limita la altura máxima de la imagen */
 }
 </style>
-

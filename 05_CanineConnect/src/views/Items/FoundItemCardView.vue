@@ -6,6 +6,10 @@ import { ref, computed } from "vue";
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 
+/* Importaciones de componentes locales */
+import EditIcon from "../../assets/icons/EditIcon.vue";
+import DeleteIcon from "../../assets/icons/DeleteIcon.vue";
+
 /* Importaciones de stores */
 import { useItemsStore } from "@/stores/itemsStore";
 import { useAuthStore } from "@/stores/authStore";
@@ -52,104 +56,50 @@ const buttonText = computed(() =>
     </div>
     <!-- Contenido de la tarjeta -->
     <div class="card-content">
-      <h3 class="card-title">
-        Nombre: <span>{{ item.name }}</span>
-      </h3>
-      <!-- Información de contacto que se muestra u oculta según el estado -->
-      <div v-if="showContactInfo">
-        <p class="card-text"><span>Email:</span> {{ item.email }}</p>
-        <p class="card-text"><span>Teléfono:</span> {{ item.phone }}</p>
-      </div>
-      <!-- Descripción del objeto -->
-      <div class="card-section">
-        <span>Descripción:</span>
-        <div class="card-text-content">{{ item.description }}</div>
-      </div>
-      <!-- Ubicación del objeto -->
-      <!-- <div class="card-section">
-        <span>Ubicación:</span>
-        <div class="card-text-content">{{ item.location }}</div>
-      </div> -->
-      <!-- Fecha en la que se encontró el objeto -->
-      <p class="card-text"><span>Fecha:</span> {{ item.date }}</p>
-      <!-- Observaciones adicionales -->
-      <div class="card-section">
-        <span>Observaciones:</span>
-        <div class="card-text-content">{{ item.observations }}</div>
-      </div>
-      <!-- Contenedor de la mapa del objeto -->
-      <div class="map-container">
-        <LMap
-          ref="map"
-          v-model:zoom="zoom"
-          :center="[item.map[0], item.map[1]]"
-          :use-global-leaflet="false"
-        >
-          <LMarker
-            :lat-lng="[item.map[0], item.map[1]]"
-            draggable
-            @moveend="pin"
-          />
-          <LTileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></LTileLayer>
-        </LMap>
-      </div>
+      <div class="card-content-inner">
+        <h2 class="card-title">{{ item.name }}</h2>
 
-      <!-- Botón para reclamar o cerrar contacto -->
-      <div class="button-container">
-        <button @click="toggleContactInfo" class="claim-button">
-          {{ buttonText }}
-        </button>
-      </div>
-    </div>
+        <div class="card-details">
+          <div class="map-container">
+            <LMap
+              ref="map"
+              v-model:zoom="zoom"
+              :center="[item.map[0], item.map[1]]"
+              :use-global-leaflet="false"
+            >
+              <LMarker
+                :lat-lng="[item.map[0], item.map[1]]"
+                draggable
+                @moveend="pin"
+              />
+              <LTileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              ></LTileLayer>
+            </LMap>
+          </div>
+          <p class="card-description">{{ item.description }}</p>
+          <p class="card-text"><span>Fecha:</span> {{ item.date }}</p>
+          <p class="card-text"><span>Teléfono:</span> {{ item.phone }}</p>
+          <p class="card-text"><span>Email:</span> {{ item.email }}</p>
+          <p class="card-text-content">
+            <span>Observaciones: </span> {{ item.observations }}
+          </p>
 
-    <!-- Encabezado de la tarjeta con botones de editar y eliminar si el usuario es el propietario -->
-    <div class="card-header" v-if="isOwner">
-      <!-- Botón para editar el objeto -->
-      <div class="button-container">
-        <router-link :to="{ name: 'edit-item-found', params: { id: item.id } }">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-pencil"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#000000"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-            <path d="M13.5 6.5l4 4" />
-          </svg>
-        </router-link>
-      </div>
-      <!-- Botón para eliminar el objeto -->
-      <div class="button-container">
-        <button type="button" @click="items.deleteItem(item.id)">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-trash"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#ff2825"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 7l16 0" />
-            <path d="M10 11l0 6" />
-            <path d="M14 11l0 6" />
-            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-          </svg>
-        </button>
+          <div class="card-header" v-if="isOwner">
+            <div class="button-container">
+              <router-link
+                :to="{ name: 'edit-item-found', params: { id: item.id } }"
+              >
+                <EditIcon />
+              </router-link>
+            </div>
+            <div class="button-container">
+              <button type="button" @click="items.deleteItem(item.id)">
+                <DeleteIcon />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -158,90 +108,116 @@ const buttonText = computed(() =>
 <style scoped>
 /* Contenedor Mapa */
 .map-container {
-  height: 30rem;
-  margin-bottom: 1rem;
+  height: 20rem;
+  margin: 3rem 0 1rem;
 }
+
+p {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 1rem;
+  margin: 0;
+}
+
 /* Estilos generales de la tarjeta */
 .card {
+  position: relative;
+  width: 100vw;
+  max-width: 25rem;
+  height: 50rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
-  width: 35rem;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-  margin: 0 auto;
-  padding: 1rem;
 }
 
-.card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Contenedor de la imagen */
 .card-image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 100%;
+  height: 66%;
+  overflow: hidden;
 }
 
 .card-img {
-  max-width: 100%;
-  max-height: 13rem;
-  border-bottom: 1px solid #ddd;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Contenido de la tarjeta */
 .card-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30%; /* Ajuste del alto del contenido visible */
+
+  color: #fff;
   padding: 1rem;
-  flex-grow: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transform: translateY(0);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 500ms ease-in;
+}
+.card-content {
+  height: 100%; /* Ocupa el 100% de la tarjeta al hacer hover */
+  background: linear-gradient(
+    180deg,
+    hsla(0, 0%, 0%, 0.05) 0%,
+    hsla(0, 0%, 0%, 0.5) 70%,
+    hsl(0, 0%, 0%, 0.8) 100%
+  );
+}
+
+.card-content-inner {
+  opacity: 1;
 }
 
 .card-title {
-  margin: 0 0 8px;
-  color: #333;
-}
-
-.card-text,
-.card-title span {
-  margin: 0 0 8px;
-  color: #666;
-}
-
-.card-text span,
-.card-section span {
-  color: #333;
   font-weight: bold;
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
+  position: absolute;
 }
 
-/* Contenido de texto dentro de la tarjeta */
+.card-description {
+  margin-bottom: 1rem;
+}
+
+.card-details {
+  display: none;
+  flex-direction: column;
+  transition: opacity 0.3s ease;
+}
+.card-details span {
+  font-weight: 700;
+  text-decoration: underline;
+  color: var(--accent-100);
+}
+
+.card:hover .card-details {
+  display: flex;
+}
+
+.card-text {
+  margin: 0.5rem 0;
+}
+
 .card-text-content {
-  width: 100%;
-  padding: 8px;
-  border: none;
+  max-height: 8rem;
   overflow-y: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  max-height: 100px; /* Altura máxima del contenedor */
-  color: #666;
 }
 
-/* Encabezado de la tarjeta */
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 16px;
-}
-
-/* Contenedor del botón */
-.button-container {
-  display: flex;
-  justify-content: center; /* Centrar el botón horizontalmente */
-  align-items: center;
-  margin-top: 1rem; /* Margen superior para separación */
+  margin-top: 1rem;
 }
 
 /* Estilos del botón de reclamar/cerrar contacto */
@@ -260,6 +236,11 @@ const buttonText = computed(() =>
 
 /* Botón sin estilos específicos */
 button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+button:hover {
   border: none;
   background: none;
   cursor: pointer;

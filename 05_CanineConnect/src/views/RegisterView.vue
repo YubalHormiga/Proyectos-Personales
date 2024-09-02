@@ -33,7 +33,7 @@ const handleSubmit = async () => {
     return;
   }
   // Si no hay errores, procede con el registro
-  const displayName = `${firstName.value} ${lastName.value}`;
+  const displayName = `${firstName.value} `;
   await register(
     email.value,
     password.value,
@@ -89,7 +89,7 @@ const handleSubmit = async () => {
 .container {
   padding: 0 1rem;
 }
-@media (min-width: 767px) {
+@media (min-width: 640px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;

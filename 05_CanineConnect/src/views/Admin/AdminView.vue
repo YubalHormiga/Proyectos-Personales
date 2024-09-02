@@ -54,7 +54,7 @@
 
 <template>
 <div class="admin-container">
-    <h1 class="admin-title">Panel de Administración</h1>
+    <h2 class="admin-title">Panel de Administración</h2>
     <p>Introduce usuario para asignar o quitar permisos de administrador.</p>
     <input
       v-model="searchTerm"

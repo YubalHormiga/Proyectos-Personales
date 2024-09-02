@@ -1,22 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Preload Critical CSS -->
+  <link rel="preload" href="/src/assets/main.css" as="style">
+  <link rel="stylesheet" href="/src/assets/main.css"> <!-- Añadir esta línea para asegurarse de que se use el archivo -->
+
+  <!-- Preconnect to External Resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Preload Fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Whisper&display=swap" as="style">
+
+  <!-- Load Font Stylesheet -->
   <link href="https://fonts.googleapis.com/css2?family=Whisper&display=swap" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-    rel="stylesheet">
+
+  <!-- Load Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <!-- Critical CSS -->
+  <style>
+    /* CSS crítico para el renderizado inicial */
+    body {
+      font-family: 'Whisper', sans-serif;
+    }
+
+    .header {
+      background-image: url("../src/assets/images/dogs.webp");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 33%;
+    }
+  </style>
+
   <title>CanineConnect</title>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="CanineConnect - Tu recurso para perros y más">
+  <meta property="og:description" content="En CanineConnect, encuentra perros perdidos, objetos perdidos, adopta un amigo peludo, y mucho más. Únete a nuestra comunidad y ayuda a hacer una diferencia.">
+  <meta property="og:image" content="https://canine-connect.vercel.app/src/assets/images/dogs.webp">
+  <meta property="og:url" content="https://canine-connect.vercel.app">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CanineConnect - Tu recurso para perros y más">
+  <meta name="twitter:description" content="En CanineConnect, encuentra perros perdidos, objetos perdidos, adopta un amigo peludo, y mucho más. Únete a nuestra comunidad y ayuda a hacer una diferencia.">
+  <meta name="twitter:image" content="https://canine-connect.vercel.app/src/assets/images/dogs.webp">
+
+  <!-- Otros meta tags -->
+  <meta name="description" content="CanineConnect: Encuentra perros y objetos perdidos, adopta, explora historias inspiradoras, chatea, y dona para apoyar nuestra causa.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://canine-connect.vercel.app">
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CanineConnect - Tu recurso para perros y más",
+      "description": "Encuentra perros perdidos, objetos perdidos, adopta un amigo peludo, y mucho más. Únete a nuestra comunidad y ayuda a hacer una diferencia.",
+      "url": "https://canine-connect.vercel.app"
+    }
+  </script>
 </head>
 
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
-
 </html>

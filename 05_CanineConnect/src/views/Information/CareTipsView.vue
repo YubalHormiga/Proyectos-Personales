@@ -30,7 +30,7 @@ import { RouterLink } from "vue-router"; // Importamos RouterLink para la navega
 }
 
 /* Estilos responsivos para el contenedor principal */
-@media (min-width: 767px) {
+@media (min-width: 640px) {
   .container {
     max-width: 120rem;
     margin: 0 auto;
@@ -49,7 +49,6 @@ import { RouterLink } from "vue-router"; // Importamos RouterLink para la navega
 
 /* Estilos para el subtítulo */
 .subtitle {
-  color: #666;
   font-style: italic;
 }
 
@@ -63,7 +62,7 @@ import { RouterLink } from "vue-router"; // Importamos RouterLink para la navega
   text-decoration: none;
   text-align: center;
   padding: 0.5rem;
-  color: rgba(184, 89, 89, 0.7);
+  color:var(--accent-200);
   font-weight: 700;
 }
 </style>

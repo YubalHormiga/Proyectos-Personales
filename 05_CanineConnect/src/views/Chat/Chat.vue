@@ -39,7 +39,7 @@ const chatRules = [
   <div class="chat-container">
     <!-- Sección de Normas del Chat -->
     <div class="chat-rules-container">
-      <h1 class="chat-rules-title">Normas del Chat</h1>
+      <h2 class="chat-rules-title">Normas del Chat</h2>
       <ol class="chat-rules-list">
         <li
           v-for="(chatRule, index) in chatRules"

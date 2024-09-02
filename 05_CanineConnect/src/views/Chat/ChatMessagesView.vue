@@ -75,12 +75,12 @@ const handleSubmit = async () => {
           v-for="(message, index) in messagesStore.messagesCollection"
           class="message-item"
           :class="{
-            'blue-message': index % 2 === 0,
-            'green-message': index % 2 !== 0,
+            'bg-100': index % 2 === 0,
+            'bg-300': index % 2 !== 0,
           }"
           :key="message.id"
         >
-          <div>
+          <div class="message-datails">
             <span class="message-author">{{ message.displayName }}: </span>
             {{ message.text }} -
             <span class="message-timestamp">{{
@@ -144,7 +144,6 @@ const handleSubmit = async () => {
 <style>
 .chat-container {
   padding: 20px;
-  font-family: Arial, sans-serif;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -168,8 +167,6 @@ const handleSubmit = async () => {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
   resize: none;
 }
 
@@ -192,7 +189,7 @@ const handleSubmit = async () => {
 .send-button {
   align-self: flex-end;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: var(--accent-200);
   color: white;
   border: none;
   border-radius: 4px;
@@ -205,7 +202,7 @@ const handleSubmit = async () => {
 }
 
 .send-button:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color:var(--accent-100);
 }
 
 .messages-section {
@@ -227,24 +224,27 @@ const handleSubmit = async () => {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 }
-
-.blue-message {
-  background-color: #d1e7fd;
-  border: 1px solid #91c7f1;
+.message-datails {
+  color: var(--bg-0);
+}
+.bg-100 {
+  background-color: var(--bg-100);
+  border: none;
 }
 
-.green-message {
-  background-color: #d4edda;
-  border: 1px solid #a3d8b0;
+.bg-300 {
+  background-color: var(--bg-300);
+  border: none;
 }
 
 .message-author {
   font-weight: bold;
+  color: var(--accent-100);
 }
 
 .message-timestamp {
   font-size: 12px;
-  color: #666;
+  color: var(--accent-200);
 }
 
 .no-messages {
@@ -258,4 +258,3 @@ button {
   cursor: pointer;
 }
 </style>
-
