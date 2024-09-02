@@ -1,42 +1,35 @@
-# CanineConnect: Contenido que Enamora y Ayuda 
-## En construcción
-Bienvenido a nuestro proyecto en construcción. Nos apasionan los perros y estamos comprometidos con su bienestar. En nuestra página encontrán:
+# CanineConnect
 
-- **Misión y Valores:** Descubre por qué amamos a los perros y cuáles son nuestros valores fundamentales.
-- **Información Útil:** Guías prácticas sobre cuidado, entrenamiento y características de razas.
+**CanineConnect** es una aplicación en desarrollo diseñada para gestionar y mostrar información sobre perros. Actualmente, estamos trabajando en su construcción, y queremos mantenerte informado sobre el progreso.
 
-- **Historias Inspiradoras:** Conoce cómo los perros cambian vidas a través de adopciones y experiencias de rescate.
+## 🚧 En Construcción
 
-- **Recursos Comunitarios:** Directorio de asociaciones, blog de expertos y calendario de eventos.
+Esta aplicación está en proceso de desarrollo. A continuación, te ofrecemos una breve descripción del propósito de la aplicación y cómo puedes obtener una vista previa si estás interesado.
 
-- **Llamado a la Acción:** Únete a nuestra causa donando, siendo voluntario o apadrinando un perro.
+## Descripción
 
-¡Ayúdanos a difundir el amor por los perros y a construir una comunidad solidaria!
+CanineConnect es una plataforma destinada a proporcionar información relevante y útil sobre perros. Incluye características como:
 
-<<<<<<< HEAD
-=======
-# ENLACE [APLICACION](https://canine-connect.vercel.app/)
+- **Adopciones de Perros**: Información y gestión de procesos de adopción.
+- **Artículos y Recursos**: Información educativa sobre el cuidado de los perros.
+- **Interacción y Comunidad**: Funcionalidades para conectar con otros usuarios y compartir experiencias.
+
+## Cómo Ver una Vista Previa
+
+Actualmente, la aplicación está en construcción y algunas partes pueden no estar disponibles para los usuarios generales. Si eres un administrador o un interesado en obtener una vista previa de cómo se verá la aplicación, te invitamos a ponerte en contacto con nosotros.
+
+### Contacto
+
+Para solicitar una vista previa o si tienes alguna pregunta sobre el estado de la aplicación, por favor contáctanos a través de:
+
+- **Correo Electrónico**: [yubalhh@gmail.com](mailto:tu_email@example.com)
+
+Te proporcionaremos acceso a una versión preliminar para que puedas explorar las características y funcionalidades que estamos implementando.
+
+## Información Adicional
+
+Para más detalles sobre el proyecto, puedes seguir su desarrollo en este repositorio. Estaremos actualizando la documentación y las características a medida que avancemos en el desarrollo.
+
+Gracias por tu interés en CanineConnect. ¡Estamos emocionados de compartir nuestro progreso contigo!
 
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
->>>>>>> d1dc8685503f02f4f0a430cc2956733c7a97ebea
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
