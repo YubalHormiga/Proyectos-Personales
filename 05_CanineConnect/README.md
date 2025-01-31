@@ -2,6 +2,9 @@
 
 **CanineConnect** es una plataforma web diseñada para facilitar la conexión entre amantes de los perros, refugios y protectoras. Esta aplicación ofrece funcionalidades para gestionar adopciones, reportar mascotas perdidas, compartir historias inspiradoras y mucho más. El proyecto destaca por su arquitectura moderna y su enfoque en el bienestar animal.
 
+🌐 [Accede a la aplicación aquí: CanineConnect](https://canine-connect.netlify.app/)
+
+
 ---
 
 ## 📝 Descripción del proyecto
