@@ -4363,7 +4363,7 @@ const mainLinks = [
 
 // Arreglo de enlaces de redes sociales
 
-const urlWeb = "https://canine-connect.vercel.app";
+const urlWeb = "https://https://canine-connect.netlify.app/";
 const socialLinks = [
   {
     href: `https://api.whatsapp.com/send?text=Visita%20CanineConnect%20aquí:%20${urlWeb}`,
